@@ -11,6 +11,7 @@ ClassCollaboration is a platform-independent application for students to easily 
 ## Meetings:
 - Informal communication via email and text message
 - Met once on 11/3/15
+- Met once on 11/5/15
 
 ## User Stories:
 1. As a user I can add new classes I am in.
