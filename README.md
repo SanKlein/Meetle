@@ -13,7 +13,26 @@ ClassCollaboration is a platform-independent application for students to easily 
 - Met once on 11/3/15
 
 ## User Stories:
-- As a user...
+1. As a user I can add new classes I am in.
+2. As a user I can create new groups within one of my classes.
+3. As a user I can pick the students in my class that I want to be in my group.
+4. As a user I can remove classes I am in.
+5. As a user I can view all the classes I am in.
+6. As a user I can send messages to the groups I am in.
+7. As a user I can make new meetups for a specific group I am in.
+8. As a user I can choose which classmates I want to attend a meetup.
+9. As a user I can choose the location date and time of a new meetup.
+10. As a user I can leave groups that I am in.
+11. As a user I can see which groups have new messages.
+12. As a user I can send messages to the class to figure out when homeworks are due.
+13. As a user I can mute class chat groups.
+14. As a teacher I can send important messages to the class.
+15. As a teacher I can set up meetups with the whole class or individual students.
+16. As a user I can easily see when I have meetups.
+17. As a user I can see details about existing meetups and groups.
+18. As a user I can add students to an existing meetup.
+19. As a user I can add students to an existing group.
+20. As a user I can like other classmates messages.
 
 ## Development Guidelines:
 - Development is in Javascript using NodeJS, AngularJS, Ionic, HTML, and CSS.
