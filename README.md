@@ -3,7 +3,6 @@
 ## Team Members:
 - Matt Owens
 - Parker Klein
-- Liyiming Ke
 
 ## Overview:
 ClassCollaboration is a platform-independent application for students to easily collaborate in groups and arrange meeting times for projects.
