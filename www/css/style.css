@@ -1,0 +1,49 @@
+a {
+  text-decoration: none;
+}
+
+.item-course {
+  text-align: center;
+}
+
+div.footer-button a.button.button-full {
+  width:100%;
+  margin-top: 0
+}
+
+.feed-toggle {
+  float:right;
+}
+
+.button.button-block {
+  margin:0;
+}
+
+.arrow-button {
+  position: relative;
+  float: right;
+  right: -50px;
+  text-decoration: none;
+}
+
+.toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* formats entry text and user search bar */
+.bar.item-input-inset .item-input-wrapper input {
+  width: 99%;
+  padding-left: 0;
+}
+
+.item-input-inset {
+  padding: 5px;
+}
+
+.wrapper-color {
+  background-color: white;
+}
+
+
