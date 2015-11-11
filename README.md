@@ -1,4 +1,4 @@
-# ClassCollaboration
+# Meetle
 
 ## Team Members:
 - Matt Owens
