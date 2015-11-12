@@ -10,8 +10,11 @@ ClassCollaboration is a platform-independent application for students to easily 
 
 ## Meetings:
 - Informal communication via email and text message
-- Met once on 11/3/15
-- Met once on 11/5/15
+- Met once on 11-3-15
+- Met once on 11-5-15
+- Met once on 11-10-15 (11, Olin)
+- Met once on 11-11-15 (5:30, Featheringhill)
+- Met once on 11-12-15 (11, Olin)
 
 ## User Stories:
 1. As a user I can add new classes I am in.
