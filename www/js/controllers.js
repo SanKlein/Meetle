@@ -1,6 +1,6 @@
-angular.module('classCollaboration.controllers', [])
+angular.module('meetle.controllers', [])
 
-  .controller('ClassCollaborationCtrl', ['$rootScope', '$ionicSideMenuDelegate', '$window', function($rootScope, $ionicSideMenuDelegate, $window) {
+  .controller('MeetleCtrl', ['$rootScope', '$ionicSideMenuDelegate', '$window', function($rootScope, $ionicSideMenuDelegate, $window) {
 
         $rootScope.currentUser = '';
         $rootScope.meetups = [];
@@ -31,8 +31,6 @@ angular.module('classCollaboration.controllers', [])
 
       $scope.login = function() {
           var username = $scope.user.username;
-          username = username.toLowerCase();
-          username = username.charAt(0).toUpperCase() + username.slice(1);
           $scope.user.username = username;
 
           UserFactory.login($scope.user).then(function(user) {
@@ -42,44 +40,76 @@ angular.module('classCollaboration.controllers', [])
           });
       };
 
+
+
   }])
 
-  .controller('CourseCtrl', ['$rootScope', '$scope', 'CourseFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, CourseFactory, $window, $ionicListDelegate) {
-    $scope.courses = [];
+    .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
 
-    CourseFactory.getMyCourses($rootScope.currentUser).then(function(courses) {
-      if (courses.length) {
-        $scope.courses = courses;
-      }
-    });
+      $scope.user = {
+        username: '',
+        password1: '',
+        password2: '',
+        first_name: '',
+        last_name: '',
+        error: ''
+      };
 
-    $scope.loadCourse = function(course) {
-      $rootScope.currentCourse = course;
-      $window.location.assign('#/groups');
-    };
+      $scope.signup = function() {
 
-    $scope.remove = function(post, index) {
-      $scope.courses.splice(index, 1);
-      $ionicListDelegate.closeOptionButtons();
-    };
-  }])
+        if ($scope.user.password1 !== $scope.user.password2) {
+          $scope.user.error = "Passwords do not match";
+        } else {
+          UserFactory.signup($scope.user).then(function(user) {
+            $rootScope.currentUser = user; // used to keep track of current user
+
+            $window.location.assign('#/groups');
+          }, function(err) {
+
+            // error to be presented to user on failed signup
+            $scope.user.error = err;
+          });
+        }
+      };
+
+    }])
 
   .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate) {
     $scope.groups = [];
 
-    $rootScope.currentCourse.user = $rootScope.currentUser._id;
-
-    GroupFactory.getMyGroups($rootScope.currentCourse).then(function(groups) {
-      $scope.groups = groups;
+    GroupFactory.getMyGroups($rootScope.currentUser).then(function(groups) {
+      if (groups.length) {
+        $scope.groups = groups;
+      }
     });
 
     $scope.loadGroup = function(group) {
       $rootScope.currentGroup = group;
-      $window.location.assign('#/tab/chat');
+      $window.location.assign('#/subGroups');
     };
 
     $scope.remove = function(post, index) {
       $scope.groups.splice(index, 1);
+      $ionicListDelegate.closeOptionButtons();
+    };
+  }])
+
+  .controller('SubGroupCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate) {
+    $scope.subgroups = [];
+
+    $rootScope.currentGroup.user = $rootScope.currentUser._id;
+
+    SubGroupFactory.getMyGroups($rootScope.currentGroup).then(function(subgroups) {
+      $scope.subgroups = subgroups;
+    });
+
+    $scope.loadSubGroup = function(subgroup) {
+      $rootScope.currentSubGroup = subgroup;
+      $window.location.assign('#/tab/chat');
+    };
+
+    $scope.remove = function(post, index) {
+      $scope.subgroups.splice(index, 1);
       $ionicListDelegate.closeOptionButtons();
     };
   }])

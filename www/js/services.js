@@ -1,6 +1,6 @@
 var base = 'http://localhost:3000';
 
-angular.module('classCollaboration.services', [])
+angular.module('meetle.services', [])
 
 .factory('UserFactory', ['$q', '$http', function($q, $http) {
     return {
@@ -21,6 +21,23 @@ angular.module('classCollaboration.services', [])
             return deferred.promise;
         },
 
+        signup: function(user) {
+
+            var deferred = $q.defer();
+
+            $http.post(base + '/v1/user', user)
+                .success(function (user) {
+                  deferred.resolve(user);
+                })
+                .error(function (err) {
+                  deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
+
+        },
+
         all: function() {
           var deferred = $q.defer();
 
@@ -38,15 +55,15 @@ angular.module('classCollaboration.services', [])
     }
 }])
 
-.factory('CourseFactory', ['$q', '$http', function($q, $http) {
+.factory('GroupFactory', ['$q', '$http', function($q, $http) {
     return {
 
-      getAllCourses: function() {
+      getAllGroups: function() {
         var deferred = $q.defer();
 
-        $http.post(base + '/course/all')
-          .success(function (courses) {
-            deferred.resolve(courses);
+        $http.post(base + '/group/all')
+          .success(function (groups) {
+            deferred.resolve(groups);
           })
           .error(function (err) {
             deferred.reject(err);
@@ -56,12 +73,12 @@ angular.module('classCollaboration.services', [])
         return deferred.promise;
       },
 
-      getMyCourses: function(user) {
+      getMyGroups: function(user) {
         var deferred = $q.defer();
 
-        $http.post(base + '/course/my', user)
-          .success(function (courses) {
-            deferred.resolve(courses);
+        $http.post(base + '/group/my', user)
+          .success(function (groups) {
+            deferred.resolve(groups);
           })
           .error(function(err) {
             deferred.reject(err);
@@ -73,15 +90,15 @@ angular.module('classCollaboration.services', [])
     }
 }])
 
-.factory('GroupFactory', ['$q', '$http', function($q, $http) {
+.factory('SubGroupFactory', ['$q', '$http', function($q, $http) {
   return {
 
-    getMyGroups: function(course) {
+    getMySubGroups: function(group) {
       var deferred = $q.defer();
 
-      $http.post(base + '/group/course', course)
-        .success(function(groups) {
-          deferred.resolve(groups);
+      $http.post(base + '/subgroup/group', group)
+        .success(function(subgroups) {
+          deferred.resolve(subgroups);
         })
         .error(function(err) {
           deferred.reject(err);

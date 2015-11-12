@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('classCollaboration', ['ionic', 'classCollaboration.controllers', 'classCollaboration.services'])
+angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -38,18 +38,25 @@ angular.module('classCollaboration', ['ionic', 'classCollaboration.controllers',
         controller: 'LoginCtrl'
     })
 
-    .state('courses', {
+    .state('signup', {
         cache: false,
-        url: '/courses',
-        templateUrl: 'templates/courses.html',
-        controller: 'CourseCtrl'
+        url: '/signup',
+        templateUrl: 'templates/signup.html',
+        controller: 'SignupCtrl'
     })
 
     .state('groups', {
+        cache: false,
+        url: '/groups',
+        templateUrl: 'templates/groups.html',
+        controller: 'GroupCtrl'
+    })
+
+    .state('subGroups', {
       cache: false,
-      url: '/groups',
-      templateUrl: 'templates/groups.html',
-      controller: 'GroupCtrl'
+      url: '/subGroups',
+      templateUrl: 'templates/subGroups.html',
+      controller: 'SubGroupCtrl'
     })
 
     // setup an abstract state for the tabs directive
@@ -82,9 +89,9 @@ angular.module('classCollaboration', ['ionic', 'classCollaboration.controllers',
                 controller: 'MeetupsCtrl'
             }
         }
-    })
+    });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/signup');
 
 });

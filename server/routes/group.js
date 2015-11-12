@@ -1,27 +1,12 @@
 var mongoose = require("mongoose"),
-  Group = require('../models/group');
+    Group = require('../models/group');
 
 module.exports = {
 
-  all : function(req, res) {
-
-    var user = req.body.user;
-    var course = req.body._id;
-
-    Group.find({course: course}).sort({_id: 1}).exec(function(err, courses) {
-      if (courses) {
-        res.send(courses);
-      } else {
-        res.send(err, 404);
-      }
-    })
-  },
-
-  create: function(req, res) {
+  create : function(req, res) {
 
     var group = new Group();
 
-    group.course = req.body.course;
     group.title = req.body.title;
 
     group.save(function(err){
@@ -31,6 +16,26 @@ module.exports = {
         res.send(err, 403);
       }
     });
-  }
+  },
 
+  all : function(req, res) {
+    Group.find().sort({title: 1}).exec(function(err, groups) {
+      if (groups) {
+        res.send(groups);
+      } else {
+        res.send(err, 404);
+      }
+    })
+  },
+
+  my : function(req, res) {
+    var id = req.body._id;
+    Group.find().sort({title: 1}).exec(function(err, groups) {
+      if (groups) {
+        res.send(groups);
+      } else {
+        res.send(err, 404);
+      }
+    })
+  }
 };
