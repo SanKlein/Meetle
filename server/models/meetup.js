@@ -1,20 +1,20 @@
 var mongoose = require('mongoose'),
     User = require('./user'),
-    Group = require('./group'),
-    Course = require('./course');
+    SubGroup = require('./subgroup'),
+    Group = require('./group');
 
 var Meetup = new mongoose.Schema({
-  students: {
-    type: [mongoose.Schema.Types.ObjectId],
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }],
   course: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course'
+    ref: 'Group'
   },
   group: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Group'
+    ref: 'SubGroup'
   },
   time: {
     type: String

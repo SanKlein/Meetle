@@ -1,4 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    SubGroup = require('./subgroup'),
+    Meetup = require('./meetup'),
+    Group = require('./group');
 
 var User = new mongoose.Schema({
   username: {
@@ -25,21 +28,18 @@ var User = new mongoose.Schema({
     type: String,
     default: './../../www/img/ionic.png'
   },
-  groups: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Groups',
-    default: []
-  },
-  subgroups: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'SubGroups',
-    default: []
-  },
-  meetups: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Meetups',
-    default: []
-  }
+  groups: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group'
+  }],
+  subgroups: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SubGroup'
+  }],
+  meetups: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Meetup'
+  }]
 });
 
 module.exports = mongoose.model('User', User);

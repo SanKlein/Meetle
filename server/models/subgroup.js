@@ -3,11 +3,10 @@ var mongoose = require('mongoose'),
     Group = require('./group');
 
 var SubGroup = new mongoose.Schema({
-  students: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'User',
-    default: []
-  },
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   group: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group'
@@ -17,7 +16,7 @@ var SubGroup = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    default: new Date()
+    default: Date.now
   }
 });
 

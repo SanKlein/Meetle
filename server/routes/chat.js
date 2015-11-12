@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-    Chat = require('../models/message');
+    Chat = require('../models/chat');
 
 module.exports = {
 
