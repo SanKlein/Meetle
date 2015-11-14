@@ -1,12 +1,13 @@
 var port = 3000;
 
-var express = require('express'),
-  mongoose = require('mongoose'),
-  uriUtil = require('mongodb-uri'),
-  cookieParser = require('cookie-parser'),
-  methodOverride = require('method-override'),
-  session = require('express-session'),
-  bodyParser = require('body-parser');
+var express           = require('express'),
+    mongoose          = require('mongoose'),
+    uriUtil           = require('mongodb-uri'),
+    cookieParser      = require('cookie-parser'),
+    methodOverride    = require('method-override'),
+    session           = require('express-session'),
+    logger            = require('morgan'),
+    bodyParser        = require('body-parser');
 
 var app = express();
 
@@ -24,6 +25,14 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/www'));
+app.use(logger('combined'));
+
+app.use(session({
+  secret: 'savingsessions',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 2592000000 }
+}));
 
 require('./server/routes')(app);
 
