@@ -2,6 +2,7 @@ var port = 3000;
 
 var express = require('express'),
   mongoose = require('mongoose'),
+  uriUtil = require('mongodb-uri'),
   cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
   session = require('express-session'),
@@ -9,8 +10,11 @@ var express = require('express'),
 
 var app = express();
 
-var configDB = require('./server/config/database.js');
-mongoose.connect(configDB.url);
+var mongodbUri = 'mongodb://admin:Meetle1@ds053954.mongolab.com:53954/meetledb';
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+mongoose.connect(mongooseUri);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 app.set('views', __dirname + '/www');
 app.engine('html', require('ejs').renderFile);
