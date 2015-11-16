@@ -90,10 +90,10 @@ angular.module('meetle.controllers', [])
     };
   }])
 
-  .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate) {
+  .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
     $scope.groups = [];
 
-    GroupFactory.getMyGroups($rootScope.currentUser).then(function(groups) {
+    GroupFactory.getMyGroups($localstorage.getObject('currentUser')).then(function(groups) {
       if (groups.length) {
         $scope.groups = groups;
       }

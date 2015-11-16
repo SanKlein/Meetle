@@ -74,5 +74,16 @@ module.exports = {
         res.send(err);
       }
     })
+  },
+
+  groups: function(req, res) {
+    var id = req.body._id;
+    User.find({_id: id}, {groups: 1}).exec(function(err, groups) {
+      if (err) {
+        res.status(500).send("Couldn't find groups");
+      } else {
+        res.status(200).send(groups);
+      }
+    })
   }
 };
