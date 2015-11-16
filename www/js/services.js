@@ -57,6 +57,23 @@ angular.module('meetle.services', [])
 
         },
 
+        update: function(user) {
+
+            var deferred = $q.defer();
+
+            $http.put(base + '/v1/user', user)
+                .success(function (user) {
+                    deferred.resolve(user);
+                })
+                .error(function (err) {
+                    deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
+
+        },
+
         all: function() {
           var deferred = $q.defer();
 

@@ -66,6 +66,21 @@ module.exports = {
     });
   },
 
+  update: function (req, res) {
+    var username = req.body.username;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+
+    User.findOneAndUpdate({ username : username }, { username:username, first_name:first_name, last_name:last_name}, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Updated user: ' + username);
+        res.status(200).send('User updated');
+      }
+    });
+  },
+
   all: function (req, res) {
     User.find().exec(function(err, users) {
       if (users) {

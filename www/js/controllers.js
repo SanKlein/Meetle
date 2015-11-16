@@ -64,30 +64,17 @@ angular.module('meetle.controllers', [])
       };
   }])
 
-  .controller('ProfileCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
+  .controller('ProfileCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
 
-    $scope.user = {
-      username: '',
-      first_name: '',
-      last_name: ''
-    };
+      $scope.user = $localstorage.getObject('currentUser');
 
-    $scope.editProfile = function() {
-
-      if ($scope.user.password1 !== $scope.user.password2) {
-        $scope.user.error = "Passwords do not match";
-      } else {
-        UserFactory.signup($scope.user).then(function(user) {
-          $rootScope.currentUser = user; // used to keep track of current user
+      $scope.editProfile = function() {
+        UserFactory.update($scope.user).then(function(user) {
+          $localstorage.setObject('currentUser', $scope.user);
 
           $window.location.assign('#/groups');
-        }, function(err) {
-
-          // error to be presented to user on failed signup
-          $scope.user.error = err;
         });
-      }
-    };
+      };
   }])
 
   .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate) {

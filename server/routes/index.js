@@ -6,34 +6,36 @@ var group = require('./group'),
 
 module.exports = function(app) {
 
-  // route to main page
-  app.get('/', function(req, res){
-    res.render('index');
-  });
+    // route to main page
+    app.get('/', function(req, res){
+        res.render('index');
+    });
 
-  app.post('/v1/user/login', user.login);
+    app.post('/v1/user/login', user.login);
 
     app.post('/v1/user', user.signup);
 
-  app.post('/users', user.all);
+    app.put('/v1/user', user.update);
 
-  app.post('/group/create', group.create);
+    app.post('/users', user.all);
 
-  app.post('/group/all', group.all);
+    app.post('/group/create', group.create);
 
-  app.post('/group/my', group.my);
+    app.post('/group/all', group.all);
 
-  app.post('/subgroup/group', subgroup.all);
+    app.post('/group/my', group.my);
 
-  app.post('/subgroup/create', subgroup.create);
+    app.post('/subgroup/group', subgroup.all);
 
-  app.post('/chat/add', chat.add);
+    app.post('/subgroup/create', subgroup.create);
 
-  app.post('/chat/all', chat.all);
+    app.post('/chat/add', chat.add);
 
-  app.post('/meetups', meetup.all);
+    app.post('/chat/all', chat.all);
 
-  app.post('/meetups/create', meetup.create);
+    app.post('/meetups', meetup.all);
+
+    app.post('/meetups/create', meetup.create);
 
 };
 
