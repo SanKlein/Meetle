@@ -28,7 +28,7 @@ angular.module('meetle.services', [])
 
             var deferred = $q.defer();
 
-            $http.post(base + '/login', user)
+            $http.post(base + '/v1/user/login', user)
                 .success(function (user) {
                     deferred.resolve(user);
                 })

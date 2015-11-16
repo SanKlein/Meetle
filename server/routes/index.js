@@ -11,7 +11,7 @@ module.exports = function(app) {
     res.render('index');
   });
 
-  app.post('/login', user.login);
+  app.post('/v1/user/login', user.login);
 
     app.post('/v1/user', user.signup);
 

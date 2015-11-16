@@ -15,25 +15,20 @@ module.exports = {
   login: function (req, res) {
 
     var username = req.body.username;
+    var password = req.body.password;
 
     if (username) {
       User.findOne({username: username}, function (error, user) {
-        if (error)
-          console.log(error);
         if (user) {
-          res.json(user);
+          var match = bcrypt.compareSync(password, user.password);
+
+          if (match) {
+            res.send(user);
+          } else {
+            res.status(401).send("password is incorrect");
+          }
         } else {
-          var user = new User();
-
-          user.username = username;
-
-          user.save(function(err){
-            if (!err) {
-              res.json(user);
-            } else {
-              res.send(err, 403);
-            }
-          });
+          res.status(401).send("username not found");
         }
       });
     } else {
