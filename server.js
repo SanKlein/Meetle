@@ -11,9 +11,7 @@ var express           = require('express'),
 
 var app = express();
 
-var mongodbUri = 'mongodb://admin:Meetle1@ds053954.mongolab.com:53954/meetledb';
-var mongooseUri = uriUtil.formatMongoose(mongodbUri);
-mongoose.connect(mongooseUri);
+mongoose.connect('mongodb://192.168.99.100:32770/meetledb');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
