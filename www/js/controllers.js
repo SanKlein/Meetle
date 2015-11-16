@@ -44,35 +44,62 @@ angular.module('meetle.controllers', [])
 
   }])
 
-    .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
+  .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
 
-      $scope.user = {
-        username: '',
-        password1: '',
-        password2: '',
-        first_name: '',
-        last_name: '',
-        error: ''
-      };
+    $scope.user = {
+      username: '',
+      password1: '',
+      password2: '',
+      first_name: '',
+      last_name: '',
+      error: ''
+    };
 
-      $scope.signup = function() {
+    $scope.signup = function() {
 
-        if ($scope.user.password1 !== $scope.user.password2) {
-          $scope.user.error = "Passwords do not match";
-        } else {
-          UserFactory.signup($scope.user).then(function(user) {
-            $rootScope.currentUser = user; // used to keep track of current user
+      if ($scope.user.password1 !== $scope.user.password2) {
+        $scope.user.error = "Passwords do not match";
+      } else {
+        UserFactory.signup($scope.user).then(function(user) {
+          $rootScope.currentUser = user; // used to keep track of current user
 
-            $window.location.assign('#/groups');
-          }, function(err) {
+          $window.location.assign('#/groups');
+        }, function(err) {
 
-            // error to be presented to user on failed signup
-            $scope.user.error = err;
-          });
-        }
-      };
+          // error to be presented to user on failed signup
+          $scope.user.error = err;
+        });
+      }
+    };
 
-    }])
+  }])
+
+  .controller('ProfileCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
+
+    $scope.user = {
+      username: '',
+      first_name: '',
+      last_name: ''
+    };
+
+    $scope.editProfile = function() {
+
+      if ($scope.user.password1 !== $scope.user.password2) {
+        $scope.user.error = "Passwords do not match";
+      } else {
+        UserFactory.signup($scope.user).then(function(user) {
+          $rootScope.currentUser = user; // used to keep track of current user
+
+          $window.location.assign('#/groups');
+        }, function(err) {
+
+          // error to be presented to user on failed signup
+          $scope.user.error = err;
+        });
+      }
+    };
+
+  }])
 
   .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate) {
     $scope.groups = [];
