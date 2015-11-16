@@ -92,6 +92,6 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/signup');
+    $urlRouterProvider.otherwise('/login');
 
 });

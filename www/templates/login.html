@@ -12,8 +12,11 @@
           <input type="password" placeholder="Password" ng-model="user.password">
         </label>
 
-        <button class="button button-block button-positive" ng-click="login()" ng-disabled="!user.username || !user.password" type="submit">
+        <button class="button button-block button-positive" ng-disabled="!user.username || !user.password" type="submit">
           Login
+        </button>
+        <button class="button button-block button-stable" ui-sref="signup">
+          I do not have an account yet
         </button>
       </form>
     </div>

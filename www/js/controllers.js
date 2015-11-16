@@ -22,29 +22,29 @@ angular.module('meetle.controllers', [])
       }
   ])
 
-  .controller('LoginCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
 
       $scope.user = {
           username: '',
-          password: ''
+          password: '',
+          error: ''
       };
 
       $scope.login = function() {
-          var username = $scope.user.username;
-          $scope.user.username = username;
-
           UserFactory.login($scope.user).then(function(user) {
+              $localstorage.setObject('currentUser', user);
               $rootScope.currentUser = user; // used to keep track of current user
 
-              $window.location.assign('#/courses');
+              $window.location.assign('#/groups');
+          }, function(err) {
+            console.log('error');
+            // error to be presented to user on failed signup
+            $scope.user.error = err;
           });
       };
-
-
-
   }])
 
-    .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', function($rootScope, $scope, UserFactory, $window) {
+    .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
 
       $scope.user = {
         username: '',
@@ -61,17 +61,17 @@ angular.module('meetle.controllers', [])
           $scope.user.error = "Passwords do not match";
         } else {
           UserFactory.signup($scope.user).then(function(user) {
+            $localstorage.setObject('currentUser', user);
             $rootScope.currentUser = user; // used to keep track of current user
 
             $window.location.assign('#/groups');
           }, function(err) {
-
+            console.log('error');
             // error to be presented to user on failed signup
             $scope.user.error = err;
           });
         }
       };
-
     }])
 
   .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate) {

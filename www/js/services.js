@@ -2,6 +2,25 @@ var base = 'http://localhost:3000';
 
 angular.module('meetle.services', [])
 
+    // takes care of local storage for current user, other user, and current entry
+    .factory('$localstorage', ['$window', function($window) {
+        return {
+            set: function(key, value) {
+                $window.localStorage[key] = value;
+            },
+            get: function(key) {
+                return $window.localStorage[key];
+            },
+            setObject: function(key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function(key) {
+                return JSON.parse($window.localStorage[key] || '{}');
+            }
+        }
+    }])
+
+
 .factory('UserFactory', ['$q', '$http', function($q, $http) {
     return {
 
