@@ -94,25 +94,10 @@ angular.module('meetle.services', [])
 .factory('GroupFactory', ['$q', '$http', function($q, $http) {
     return {
 
-      getAllGroups: function() {
-        var deferred = $q.defer();
-
-        $http.post(base + '/group/all')
-          .success(function (groups) {
-            deferred.resolve(groups);
-          })
-          .error(function (err) {
-            deferred.reject(err);
-          })
-        ;
-
-        return deferred.promise;
-      },
-
       getMyGroups: function(user) {
         var deferred = $q.defer();
 
-        $http.post(base + '/group/my', user)
+        $http.post(base + '/v1/user/groups', user)
           .success(function (groups) {
             deferred.resolve(groups);
           })

@@ -28,9 +28,9 @@ module.exports = {
     })
   },
 
-  my : function(req, res) {
-    var id = req.body._id;
-    Group.find().sort({title: 1}).exec(function(err, groups) {
+  groups : function(req, res) {
+    var username = req.body.username;
+    Group.find({}).sort({dateCreated: 1}).exec(function(err, groups) {
       if (groups) {
         res.send(groups);
       } else {
