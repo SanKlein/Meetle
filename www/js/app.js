@@ -45,6 +45,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'SignupCtrl'
     })
 
+    .state('profile', {
+        cache: false,
+        url: '/profile',
+        templateUrl: 'templates/profile.html',
+        controller: 'ProfileCtrl'
+    })
+
     .state('groups', {
         cache: false,
         url: '/groups',
