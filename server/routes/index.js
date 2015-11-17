@@ -17,11 +17,15 @@ module.exports = function(app) {
 
     app.put('/v1/user', user.update);
 
-    app.post('/users', user.all);
+    app.post('/v1/users', user.all);
 
     app.post('/v1/user/groups', user.groups);
 
+    app.post('/v1/user/group', user.addGroup);
+
     app.post('/v1/group', group.create);
+
+    app.post('/v1/group/:id', group.getGroup);
 
     app.post('/group/all', group.all);
 

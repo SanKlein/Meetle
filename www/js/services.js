@@ -74,6 +74,23 @@ angular.module('meetle.services', [])
 
         },
 
+        addGroup: function(group) {
+
+            var deferred = $q.defer();
+
+            $http.put(base + '/v1/user/group', group)
+                .success(function (user) {
+                    deferred.resolve(user);
+                })
+                .error(function (err) {
+                    deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
+
+        },
+
         all: function() {
           var deferred = $q.defer();
 
@@ -95,18 +112,33 @@ angular.module('meetle.services', [])
     return {
 
         getMyGroups: function(user) {
-        var deferred = $q.defer();
+            var deferred = $q.defer();
 
-        $http.post(base + '/v1/user/groups', user)
-          .success(function (groups) {
-            deferred.resolve(groups);
-          })
-          .error(function(err) {
-            deferred.reject(err);
-          })
-        ;
+            $http.post(base + '/v1/user/groups', user)
+              .success(function (groups) {
+                deferred.resolve(groups);
+              })
+              .error(function(err) {
+                deferred.reject(err);
+              })
+            ;
 
-        return deferred.promise;
+            return deferred.promise;
+        },
+
+        getGroup: function(group) {
+            var deferred = $q.defer();
+
+            $http.post(base + '/v1/group' + group)
+                .success(function (groups) {
+                    deferred.resolve(groups);
+                })
+                .error(function(err) {
+                    deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
         },
 
         create: function(group) {

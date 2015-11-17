@@ -67,11 +67,12 @@ module.exports = {
   },
 
   update: function (req, res) {
+    var id = req.body._id;
     var username = req.body.username;
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
 
-    User.findOneAndUpdate({ username : username }, { username:username, first_name:first_name, last_name:last_name}, function(err) {
+    User.findOneAndUpdate({ _id : id }, { username: username, first_name:first_name, last_name:last_name}, function(err) {
       if (err) {
         res.status(500).send('Internal server error.');
       } else {
@@ -100,5 +101,19 @@ module.exports = {
         res.status(200).send(groups);
       }
     })
+  },
+
+  addGroup: function(req, res) {
+    var id = req.body.user_id;
+    var group = req.body._id;
+
+    User.findOneAndUpdate({_id : id}, {$push: {groups: group}}).exec(function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log(group);
+        res.status(200).send('Group updated');
+      }
+    });
   }
 };

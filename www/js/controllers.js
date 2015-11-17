@@ -1,12 +1,13 @@
 angular.module('meetle.controllers', [])
 
-  .controller('MeetleCtrl', ['$rootScope', '$ionicSideMenuDelegate', '$window', function($rootScope, $ionicSideMenuDelegate, $window) {
+  .controller('MeetleCtrl', ['$rootScope', '$ionicSideMenuDelegate', '$window', '$localstorage', function($rootScope, $ionicSideMenuDelegate, $window, $localstorage) {
 
         $rootScope.currentUser = '';
         $rootScope.meetups = [];
 
           $rootScope.logout = function() {
               $rootScope.currentUser = null;
+              $localstorage.set('currentUser', '');
 
               $window.location.assign('#/login');
           };
@@ -80,9 +81,24 @@ angular.module('meetle.controllers', [])
   .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
     $scope.groups = [];
 
-    GroupFactory.getMyGroups($localstorage.getObject('currentUser')).then(function(groups) {
-      if (groups.length) {
-        $scope.groups = groups;
+    GroupFactory.getMyGroups($localstorage.getObject('currentUser')).then(function(user) {
+      console.log(user[0]);
+      console.log('groups');
+      console.log(user[0].groups);
+      if (user[0].groups.length) {
+        for (var i = 0; i < user[0].groups.length; i++) {
+          (function(index){
+            console.log('group id');
+            var group = '';
+            group.id = user[0].groups[index];
+            console.log(group);
+            GroupFactory.getGroup(group).then(function(group) {
+              console.log('group');
+              console.log(group);
+              $scope.groups.push(group);
+            });
+          })(i);
+        }
       }
     });
 
@@ -97,7 +113,7 @@ angular.module('meetle.controllers', [])
     };
   }])
 
-  .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
+  .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory) {
     $scope.group = {
       title: '',
       user_id: $localstorage.getObject('currentUser')._id
@@ -105,8 +121,11 @@ angular.module('meetle.controllers', [])
 
     $scope.createGroup = function() {
       GroupFactory.create($scope.group).then(function(group) {
-        $window.location.assign('#/groups');
-      })
+        group.user_id = $scope.group.user_id;
+        UserFactory.addGroup(group).then(function(user) {
+          $window.location.assign('#/groups');
+        });
+      });
     };
   }])
 
