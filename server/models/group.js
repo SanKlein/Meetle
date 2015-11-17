@@ -11,10 +11,6 @@ var Group = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  subgroups: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'SubGroup'
-  }],
   dateCreated: {
     type: Date,
     default: Date.now

@@ -27,19 +27,7 @@ var User = new mongoose.Schema({
   profilePicture: {
     type: String,
     default: './../../www/img/ionic.png'
-  },
-  groups: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Group'
-  }],
-  subgroups: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'SubGroup'
-  }],
-  meetups: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Meetup'
-  }]
+  }
 });
 
 module.exports = mongoose.model('User', User);
