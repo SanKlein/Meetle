@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
 
 var Group = new mongoose.Schema({
   title: {
-    type: String
+    type: String,
+    required: true
   },
   members: [{
     type: mongoose.Schema.Types.ObjectId,
