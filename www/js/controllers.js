@@ -46,6 +46,15 @@ angular.module('meetle.controllers', [])
 
   .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
 
+      $scope.user = {
+        username: '',
+        password1: '',
+        password2: '',
+        first_name: '',
+        last_name: '',
+        error: ''
+      };
+
       $scope.signup = function() {
           if ($scope.user.password1 !== $scope.user.password2) {
             $scope.user.error = "Passwords do not match";
@@ -71,8 +80,14 @@ angular.module('meetle.controllers', [])
       $scope.editProfile = function() {
         UserFactory.update($scope.user).then(function(user) {
           $localstorage.setObject('currentUser', $scope.user);
-
           $window.location.assign('#/groups');
+        });
+      };
+
+      $scope.deleteAccount = function() {
+        UserFactory.delete($scope.user).then(function(user) {
+          $localstorage.set('currentUser', '');
+          $window.location.assign('#/login');
         });
       };
   }])

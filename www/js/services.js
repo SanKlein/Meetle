@@ -74,6 +74,23 @@ angular.module('meetle.services', [])
 
         },
 
+        delete: function(user) {
+
+            var deferred = $q.defer();
+
+            $http.delete(base + '/v1/user', user)
+                .success(function (user) {
+                    deferred.resolve(user);
+                })
+                .error(function (err) {
+                    deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
+
+        },
+
         all: function() {
           var deferred = $q.defer();
 

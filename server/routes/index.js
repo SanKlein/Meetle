@@ -17,6 +17,8 @@ module.exports = function(app) {
 
     app.put('/v1/user', user.update);
 
+    app.delete('/v1/user', user.delete);
+
     app.post('/users', user.all);
 
     app.post('/v1/user/groups', user.groups);
