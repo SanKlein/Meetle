@@ -82,6 +82,23 @@ module.exports = {
     });
   },
 
+  deleteUser: function (req, res) {
+    var id = req.body._id;
+
+    User.remove({ _id:id }).exec(function(err, user) {
+      if(err) {
+        res.status(500).send({ error: 'Internal server error.' });
+      } else {
+        if(user) {
+          console.log('Deleted user: ' + user);
+          res.status(200).send(user);
+        } else {
+          res.status(404).send({ error: 'User does not exist' });
+        }
+      }
+    });
+  },
+
   all: function (req, res) {
     User.find().exec(function(err, users) {
       if (users) {

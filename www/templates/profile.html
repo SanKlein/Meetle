@@ -19,6 +19,7 @@
                     <input type="text" ng-model="user.username">
                 </label>
                 <button class="button button-block button-positive" ng-disabled="!user.username || !user.first_name || !user.last_name" type="submit">Update</button>
+                <button class="button button-block button-positive" ng-click="deleteAccount()" type="button">Delete Account</button>
             </form>
         </div>
     </ion-content>

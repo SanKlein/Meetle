@@ -73,6 +73,23 @@ angular.module('meetle.services', [])
 
             },
 
+            deleteUser: function(user) {
+
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/user/delete', user)
+                    .success(function (user) {
+                        deferred.resolve(user);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
+            },
+
             addGroup: function(group) {
 
                 var deferred = $q.defer();
@@ -191,6 +208,7 @@ angular.module('meetle.services', [])
       return {
 
         getMySubGroups: function(group) {
+
           var deferred = $q.defer();
 
           $http.post(base + '/subgroup/group', group)
@@ -260,7 +278,7 @@ angular.module('meetle.services', [])
           ;
 
           return deferred.promise;
-        },
+        }
 
       }
     }]);

@@ -81,8 +81,14 @@ angular.module('meetle.controllers', [])
       $scope.editProfile = function() {
         UserFactory.update($scope.user).then(function(user) {
           $localstorage.setObject('currentUser', $scope.user);
-
           $window.location.assign('#/groups');
+        });
+      };
+
+      $scope.deleteAccount = function() {
+        UserFactory.deleteUser($scope.user).then(function(user) {
+          $localstorage.set('currentUser', '');
+          $window.location.assign('#/login');
         });
       };
   }])

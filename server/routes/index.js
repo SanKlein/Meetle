@@ -19,6 +19,8 @@ module.exports = function(app) {
 
     app.post('/v1/users', user.all);
 
+    app.post('/v1/user/delete', user.deleteUser);
+
     app.post('/v1/user/groups', user.groups);
 
     app.post('/v1/user/group', user.addGroup);
