@@ -59,6 +59,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'GroupCtrl'
     })
 
+    .state('newGroup', {
+        cache: false,
+        url: '/group/new',
+        templateUrl: 'templates/newGroup.html',
+        controller: 'NewGroupCtrl'
+    })
+
     .state('subGroups', {
       cache: false,
       url: '/subGroups',

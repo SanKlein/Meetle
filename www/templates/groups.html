@@ -3,19 +3,19 @@
     <div class="button button-clear">
       <button ng-click="openMenu()" class="button button-clear ion-navicon-round"></button>
     </div>
-    <h1 class="title">My Courses</h1>
+    <h1 class="title">My Groups</h1>
     <div class="button button-clear">
-      <a class="button button-clear ion-plus-round"></a>
+      <a class="button button-clear ion-plus-round" ui-sref="newGroup"></a>
     </div>
   </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
-      <ion-item class="item item-text-wrap" ng-repeat="course in courses track by $index">
-        <a class="button button-clear button-dark" ng-click="loadCourse(course)" href="#/groups">
-          {{course.title}}
+      <ion-item class="item item-text-wrap" ng-repeat="group in groups track by $index">
+        <a class="button button-clear button-dark" ng-click="loadGroup(group)" href="#/subGroups">
+          {{group._id}}
         </a>
-        <a class="ion-ios-arrow-right arrow-button button button-clear button-dark" ng-click="loadCourse(course)" href="#/groups"></a>
-        <ion-option-button class="button-assertive" ng-click="remove(course, $index)">
+        <a class="ion-ios-arrow-right arrow-button button button-clear button-dark" ng-click="loadGroup(group)" href="#/subGroups"></a>
+        <ion-option-button class="button-assertive" ng-click="remove(group, $index)">
           Remove
         </ion-option-button>
       </ion-item>

@@ -21,11 +21,9 @@ module.exports = function(app) {
 
     app.post('/v1/user/groups', user.groups);
 
-    app.post('/group/create', group.create);
+    app.post('/v1/group', group.create);
 
     app.post('/group/all', group.all);
-
-    app.post('/group/my', group.my);
 
     app.post('/subgroup/group', subgroup.all);
 

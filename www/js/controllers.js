@@ -97,6 +97,19 @@ angular.module('meetle.controllers', [])
     };
   }])
 
+  .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
+    $scope.group = {
+      title: '',
+      user_id: $localstorage.getObject('currentUser')._id
+    };
+
+    $scope.createGroup = function() {
+      GroupFactory.create($scope.group).then(function(group) {
+        $window.location.assign('#/groups');
+      })
+    };
+  }])
+
   .controller('SubGroupCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate) {
     $scope.subgroups = [];
 

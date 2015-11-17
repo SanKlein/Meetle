@@ -94,7 +94,7 @@ angular.module('meetle.services', [])
 .factory('GroupFactory', ['$q', '$http', function($q, $http) {
     return {
 
-      getMyGroups: function(user) {
+        getMyGroups: function(user) {
         var deferred = $q.defer();
 
         $http.post(base + '/v1/user/groups', user)
@@ -107,7 +107,22 @@ angular.module('meetle.services', [])
         ;
 
         return deferred.promise;
-      }
+        },
+
+        create: function(group) {
+            var deferred = $q.defer();
+
+            $http.post(base + '/v1/group', group)
+                .success(function (groups) {
+                    deferred.resolve(groups);
+                })
+                .error(function(err) {
+                    deferred.reject(err);
+                })
+            ;
+
+            return deferred.promise;
+        }
     }
 }])
 
@@ -127,7 +142,7 @@ angular.module('meetle.services', [])
       ;
 
       return deferred.promise;
-    },
+    }
 
   }
 }])
