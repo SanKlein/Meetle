@@ -85,7 +85,7 @@ angular.module('meetle.controllers', [])
       };
 
       $scope.deleteAccount = function() {
-        UserFactory.delete($scope.user).then(function(user) {
+        UserFactory.deleteUser($scope.user).then(function(user) {
           $localstorage.set('currentUser', '');
           $window.location.assign('#/login');
         });

@@ -17,7 +17,7 @@ module.exports = function(app) {
 
     app.put('/v1/user', user.update);
 
-    app.delete('/v1/user', user.delete);
+    app.post('/v1/user/delete', user.deleteUser);
 
     app.post('/users', user.all);
 

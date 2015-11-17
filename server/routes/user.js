@@ -81,7 +81,7 @@ module.exports = {
     });
   },
 
-  delete: function (req, res) {
+  deleteUser: function (req, res) {
     var id = req.body._id;
 
     User.remove({ _id:id }).exec(function(err, user) {

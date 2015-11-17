@@ -74,11 +74,11 @@ angular.module('meetle.services', [])
 
         },
 
-        delete: function(user) {
+        deleteUser: function(user) {
 
             var deferred = $q.defer();
 
-            $http.delete(base + '/v1/user', user)
+            $http.post(base + '/v1/user/delete', user)
                 .success(function (user) {
                     deferred.resolve(user);
                 })
