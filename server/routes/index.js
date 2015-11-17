@@ -19,23 +19,15 @@ module.exports = function(app) {
 
     app.post('/v1/users', user.all);
 
-    app.post('/v1/user/groups', user.groups);
-
-    app.post('/v1/user/group', user.addGroup);
-
-    app.post('/v1/user/group/delete', user.deleteGroup);
-
     app.post('/v1/group', group.create);
 
     app.post('/v1/group/delete', group.deleteGroup);
 
-    app.post('/v1/group/:id', group.getGroup);
+    app.get('/v1/groups/:id', group.getGroups);
 
-    app.post('/group/all', group.all);
+    app.post('/v1/subgroup', subgroup.create);
 
-    app.post('/subgroup/group', subgroup.all);
-
-    app.post('/subgroup/create', subgroup.create);
+    app.post('/v1/subgroup/group', subgroup.getSubGroups);
 
     app.post('/chat/add', chat.add);
 

@@ -1,21 +1,17 @@
-<ion-view view-title="Groups">
+<ion-view view-title="SubGroups">
   <ion-header-bar class="bar bar-positive">
-    <div class="button button-clear">
-      <a class="button button-clear ion-chevron-left" ui-sref="courses"></a>
-    </div>
-    <h1 class="title">{{currentCourse.title}}</h1>
-    <a class="button button-clear">
-      <a class="button ion-plus-round button-clear"></a>
-    </a>
+    <a class="button button-clear ion-chevron-left" ng-click="goBack()"></a>
+    <h1 class="title">{{currentGroup.title}}</h1>
+    <a class="button ion-plus-round button-clear"></a>
   </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
-      <ion-item class="item-text-wrap" ng-repeat="group in groups track by $index">
-        <a class="button button-clear button-dark" ng-click="loadGroup(group, $index)" href="#/tab/chat">
-          {{group.title}}
+      <ion-item class="item-text-wrap" ng-repeat="subgroup in subgroups track by $index">
+        <a class="button button-clear button-dark" ng-click="loadSubGroup(subgroup, $index)">
+          {{subgroup.title}}
         </a>
-        <a class="button button-clear arrow-button button-dark ion-ios-arrow-right" ng-click="loadGroup(group, $index)" href="#/tab/chat"></a>
-        <ion-option-button class="button-assertive" ng-click="remove(group, $index)">
+        <a class="button button-clear arrow-button button-dark ion-ios-arrow-right" ng-click="loadSubGroup(subgroup, $index)"></a>
+        <ion-option-button class="button-assertive" ng-click="remove(subgroup, $index)">
           Leave
         </ion-option-button>
       </ion-item>

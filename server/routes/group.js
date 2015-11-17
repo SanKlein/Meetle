@@ -26,21 +26,12 @@ module.exports = {
     });
   },
 
-  all : function(req, res) {
-    Group.find().sort({title: 1}).exec(function(err, groups) {
+  getGroups : function(req, res) {
+    var id = req.params.id;
+
+    Group.find({members: id}).exec(function(err, groups) {
       if (groups) {
         res.send(groups);
-      } else {
-        res.send(err, 404);
-      }
-    })
-  },
-
-  getGroup : function(req, res) {
-    var id = req.params.id;
-    Group.find({_id: id}).exec(function(err, group) {
-      if (group) {
-        res.send(group);
       } else {
         res.send(err, 404);
       }

@@ -3,30 +3,33 @@ var mongoose = require("mongoose"),
 
 module.exports = {
 
-  all : function(req, res) {
-
-    var user = req.body.user;
-    var group = req.body._id;
-
-    SubGroup.find({group: group}).sort({_id: 1}).exec(function(err, groups) {
-      if (groups) {
-        res.send(groups);
-      } else {
-        res.send(err, 404);
-      }
-    })
-  },
-
   create: function(req, res) {
 
+    var group = req.body._id;
+    var title = req.body.subgroup_title;
+    var user = req.body.user_id;
     var subgroup = new SubGroup();
 
-    subgroup.group = req.body.group;
-    subgroup.title = req.body.title;
+    subgroup.group = group;
+    subgroup.title = title;
+    subgroup.members = [user];
 
     subgroup.save(function(err){
       if (!err) {
-        res.json(subgroup);
+        res.send(subgroup);
+      } else {
+        res.send(err, 403);
+      }
+    });
+  },
+
+  getSubGroups: function(req, res) {
+    var id = req.body._id;
+    var user = req.body.user;
+
+    SubGroup.find({group: id, members: user}).exec(function(err, subgroups) {
+      if (!err) {
+        res.send(subgroups);
       } else {
         res.send(err, 403);
       }

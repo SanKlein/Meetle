@@ -1,9 +1,14 @@
 var mongoose = require('mongoose'),
-    User = require('./user');
+    User = require('./user'),
+    SubGroup = require('./subgroup');
 
 var Chat = new mongoose.Schema({
   text: {
     type: String
+  },
+  subgroup: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SubGroup'
   },
   user_username: {
     type: String

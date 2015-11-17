@@ -4,14 +4,6 @@ var mongoose = require("mongoose"),
 
 module.exports = {
 
-  // GET /users
-  getUsers: function (req, res) {
-    User.find({}, function (error, users) {
-      res.json(users);
-    });
-  },
-
-  // POST /users/sign_in
   login: function (req, res) {
 
     var username = req.body.username;
@@ -90,47 +82,5 @@ module.exports = {
         res.send(err);
       }
     })
-  },
-
-  groups: function(req, res) {
-    var id = req.body._id;
-    User.find({_id: id}, {groups: 1}).exec(function(err, groups) {
-      if (err) {
-        res.status(500).send("Couldn't find groups");
-      } else {
-        res.status(200).send(groups);
-      }
-    })
-  },
-
-  addGroup: function(req, res) {
-    var id = req.body.user_id;
-    var group = req.body._id;
-
-    User.findOneAndUpdate({_id : id}, {$push: {groups: group}}).exec(function(err) {
-      if (err) {
-        res.status(500).send('Internal server error.');
-      } else {
-        console.log(group);
-        res.status(200).send('Group updated');
-      }
-    });
-  },
-
-  deleteGroup: function(req, res) {
-    var id = req.body.user_id;
-    var group = req.body._id;
-
-    console.log(id);
-    console.log(group);
-
-    User.findOneAndUpdate({_id : id}, {$pull: {groups: group}}).exec(function(err) {
-      if (err) {
-        res.status(500).send('Internal server error.');
-      } else {
-        console.log('delete group');
-        res.status(200).send('Group deleted');
-      }
-    });
   }
 };
