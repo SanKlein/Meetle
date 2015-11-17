@@ -1,6 +1,6 @@
 var mongoose = require("mongoose"),
     Group = require('../models/group'),
-    User = require('../models/user');;
+    User = require('../models/user');
 
 module.exports = {
 
@@ -45,5 +45,21 @@ module.exports = {
         res.send(err, 404);
       }
     })
+  },
+
+  deleteGroup: function(req, res) {
+    console.log('heres the group id');
+    console.log(req.body._id);
+
+    var group = req.body._id;
+
+    Group.remove({_id : group}).exec(function(err, group) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('delete group');
+        res.status(200).send('Group deleted');
+      }
+    });
   }
 };

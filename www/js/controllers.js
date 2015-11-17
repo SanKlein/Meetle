@@ -47,6 +47,15 @@ angular.module('meetle.controllers', [])
 
   .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
 
+      $scope.user = {
+        username: '',
+        password1: '',
+        password2: '',
+        first_name: '',
+        last_name: '',
+        error: ''
+      };
+
       $scope.signup = function() {
           if ($scope.user.password1 !== $scope.user.password2) {
             $scope.user.error = "Passwords do not match";
@@ -78,7 +87,7 @@ angular.module('meetle.controllers', [])
       };
   }])
 
-  .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
+  .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory) {
     $scope.groups = [];
 
     GroupFactory.getMyGroups($localstorage.getObject('currentUser')).then(function(user) {
@@ -89,13 +98,13 @@ angular.module('meetle.controllers', [])
         for (var i = 0; i < user[0].groups.length; i++) {
           (function(index){
             console.log('group id');
-            var group = '';
+            var group = {};
             group.id = user[0].groups[index];
             console.log(group);
             GroupFactory.getGroup(group).then(function(group) {
               console.log('group');
               console.log(group);
-              $scope.groups.push(group);
+              $scope.groups.push(group[0]);
             });
           })(i);
         }
@@ -103,13 +112,22 @@ angular.module('meetle.controllers', [])
     });
 
     $scope.loadGroup = function(group) {
+      $localstorage.setObject('currentGroup', group);
       $rootScope.currentGroup = group;
       $window.location.assign('#/subGroups');
     };
 
-    $scope.remove = function(post, index) {
-      $scope.groups.splice(index, 1);
-      $ionicListDelegate.closeOptionButtons();
+    $scope.remove = function(group, index) {
+      group.user_id = $localstorage.getObject('currentUser')._id;
+      console.log('group to remove');
+      console.log(group);
+      GroupFactory.deleteGroup(group).then(function(deletedGroup) {
+        console.log(deletedGroup);
+        UserFactory.deleteGroup(group).then(function(user) {
+          $scope.groups.splice(index, 1);
+          $ionicListDelegate.closeOptionButtons();
+        });
+      });
     };
   }])
 
@@ -206,7 +224,3 @@ angular.module('meetle.controllers', [])
     });
 
   }])
-
-
-;
-

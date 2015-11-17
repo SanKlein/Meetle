@@ -115,5 +115,22 @@ module.exports = {
         res.status(200).send('Group updated');
       }
     });
+  },
+
+  deleteGroup: function(req, res) {
+    var id = req.body.user_id;
+    var group = req.body._id;
+
+    console.log(id);
+    console.log(group);
+
+    User.findOneAndUpdate({_id : id}, {$pull: {groups: group}}).exec(function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('delete group');
+        res.status(200).send('Group deleted');
+      }
+    });
   }
 };

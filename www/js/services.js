@@ -20,83 +20,182 @@ angular.module('meetle.services', [])
         }
     }])
 
+    .factory('UserFactory', ['$q', '$http', function($q, $http) {
+        return {
 
-.factory('UserFactory', ['$q', '$http', function($q, $http) {
-    return {
+            login: function (user) {
 
-        login: function (user) {
+                var deferred = $q.defer();
 
-            var deferred = $q.defer();
+                $http.post(base + '/v1/user/login', user)
+                    .success(function (user) {
+                        deferred.resolve(user);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
 
-            $http.post(base + '/v1/user/login', user)
-                .success(function (user) {
-                    deferred.resolve(user);
+                return deferred.promise;
+            },
+
+            signup: function(user) {
+
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/user', user)
+                    .success(function (user) {
+                      deferred.resolve(user);
+                    })
+                    .error(function (err) {
+                      deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
+            },
+
+            update: function(user) {
+
+                var deferred = $q.defer();
+
+                $http.put(base + '/v1/user', user)
+                    .success(function (user) {
+                        deferred.resolve(user);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
+            },
+
+            addGroup: function(group) {
+
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/user/group', group)
+                    .success(function (user) {
+                        deferred.resolve(user);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
+            },
+
+            deleteGroup: function(group) {
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/user/group/delete', group)
+                    .success(function (groups) {
+                        deferred.resolve(groups);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+            },
+
+            all: function() {
+              var deferred = $q.defer();
+
+              $http.post(base + '/users')
+                .success(function(users) {
+                  deferred.resolve(users);
                 })
-                .error(function (err) {
-                    deferred.reject(err);
-                })
-            ;
-
-            return deferred.promise;
-        },
-
-        signup: function(user) {
-
-            var deferred = $q.defer();
-
-            $http.post(base + '/v1/user', user)
-                .success(function (user) {
-                  deferred.resolve(user);
-                })
-                .error(function (err) {
+                .error(function(err) {
                   deferred.reject(err);
                 })
-            ;
+              ;
 
-            return deferred.promise;
+              return deferred.promise;
+            }
+        }
+    }])
 
-        },
+    .factory('GroupFactory', ['$q', '$http', function($q, $http) {
+        return {
 
-        update: function(user) {
+            create: function(group) {
+                var deferred = $q.defer();
 
-            var deferred = $q.defer();
+                $http.post(base + '/v1/group', group)
+                    .success(function (groups) {
+                        deferred.resolve(groups);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    })
+                ;
 
-            $http.put(base + '/v1/user', user)
-                .success(function (user) {
-                    deferred.resolve(user);
-                })
-                .error(function (err) {
+                return deferred.promise;
+            },
+
+            getMyGroups: function(user) {
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/user/groups', user)
+                  .success(function (groups) {
+                    deferred.resolve(groups);
+                  })
+                  .error(function(err) {
                     deferred.reject(err);
-                })
-            ;
+                  })
+                ;
 
-            return deferred.promise;
+                return deferred.promise;
+            },
 
-        },
+            getGroup: function(group) {
+                var deferred = $q.defer();
 
-        addGroup: function(group) {
+                $http.post(base + '/v1/group/' + group.id)
+                    .success(function (groups) {
+                        deferred.resolve(groups);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    })
+                ;
 
-            var deferred = $q.defer();
+                return deferred.promise;
+            },
 
-            $http.put(base + '/v1/user/group', group)
-                .success(function (user) {
-                    deferred.resolve(user);
-                })
-                .error(function (err) {
-                    deferred.reject(err);
-                })
-            ;
+            deleteGroup: function(group) {
+                var deferred = $q.defer();
 
-            return deferred.promise;
+                $http.post(base + '/v1/group/delete', group)
+                    .success(function (groups) {
+                        deferred.resolve(groups);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    })
+                ;
 
-        },
+                return deferred.promise;
+            }
+        }
+    }])
 
-        all: function() {
+    .factory('SubGroupFactory', ['$q', '$http', function($q, $http) {
+      return {
+
+        getMySubGroups: function(group) {
           var deferred = $q.defer();
 
-          $http.post(base + '/users')
-            .success(function(users) {
-              deferred.resolve(users);
+          $http.post(base + '/subgroup/group', group)
+            .success(function(subgroups) {
+              deferred.resolve(subgroups);
             })
             .error(function(err) {
               deferred.reject(err);
@@ -105,134 +204,63 @@ angular.module('meetle.services', [])
 
           return deferred.promise;
         }
-    }
-}])
 
-.factory('GroupFactory', ['$q', '$http', function($q, $http) {
-    return {
+      }
+    }])
 
-        getMyGroups: function(user) {
-            var deferred = $q.defer();
+    .factory('ChatFactory', ['$q', '$http', function($q, $http) {
+      return {
 
-            $http.post(base + '/v1/user/groups', user)
-              .success(function (groups) {
-                deferred.resolve(groups);
-              })
-              .error(function(err) {
-                deferred.reject(err);
-              })
-            ;
+        create: function(chat) {
+          var deferred = $q.defer();
 
-            return deferred.promise;
+          $http.post(base + '/chat/add', chat)
+            .success(function(message) {
+              deferred.resolve(message);
+            })
+            .error(function(err) {
+              deferred.reject(err);
+            })
+          ;
+
+          return deferred.promise;
         },
 
-        getGroup: function(group) {
-            var deferred = $q.defer();
+        getChat: function() {
+          var deferred = $q.defer();
 
-            $http.post(base + '/v1/group' + group)
-                .success(function (groups) {
-                    deferred.resolve(groups);
-                })
-                .error(function(err) {
-                    deferred.reject(err);
-                })
-            ;
+          $http.post(base + '/chat/all')
+            .success(function(chats) {
+              deferred.resolve(chats);
+            })
+            .error(function(err) {
+              deferred.reject(err);
+            })
+          ;
 
-            return deferred.promise;
-        },
-
-        create: function(group) {
-            var deferred = $q.defer();
-
-            $http.post(base + '/v1/group', group)
-                .success(function (groups) {
-                    deferred.resolve(groups);
-                })
-                .error(function(err) {
-                    deferred.reject(err);
-                })
-            ;
-
-            return deferred.promise;
+          return deferred.promise;
         }
-    }
-}])
 
-.factory('SubGroupFactory', ['$q', '$http', function($q, $http) {
-  return {
+      }
+    }])
 
-    getMySubGroups: function(group) {
-      var deferred = $q.defer();
+    .factory('MeetupFactory', ['$q', '$http', function($q, $http) {
+      return {
 
-      $http.post(base + '/subgroup/group', group)
-        .success(function(subgroups) {
-          deferred.resolve(subgroups);
-        })
-        .error(function(err) {
-          deferred.reject(err);
-        })
-      ;
+        all: function() {
+          var deferred = $q.defer();
 
-      return deferred.promise;
-    }
+          $http.post(base + '/meetups')
+            .success(function(meetups) {
+              deferred.resolve(meetups);
+            })
+            .error(function(err) {
+              deferred.reject(err);
+            })
+          ;
 
-  }
-}])
+          return deferred.promise;
+        },
 
-.factory('ChatFactory', ['$q', '$http', function($q, $http) {
-  return {
-
-    create: function(chat) {
-      var deferred = $q.defer();
-
-      $http.post(base + '/chat/add', chat)
-        .success(function(message) {
-          deferred.resolve(message);
-        })
-        .error(function(err) {
-          deferred.reject(err);
-        })
-      ;
-
-      return deferred.promise;
-    },
-
-    getChat: function() {
-      var deferred = $q.defer();
-
-      $http.post(base + '/chat/all')
-        .success(function(chats) {
-          deferred.resolve(chats);
-        })
-        .error(function(err) {
-          deferred.reject(err);
-        })
-      ;
-
-      return deferred.promise;
-    }
-
-  }
-}])
-
-.factory('MeetupFactory', ['$q', '$http', function($q, $http) {
-  return {
-
-    all: function() {
-      var deferred = $q.defer();
-
-      $http.post(base + '/meetups')
-        .success(function(meetups) {
-          deferred.resolve(meetups);
-        })
-        .error(function(err) {
-          deferred.reject(err);
-        })
-      ;
-
-      return deferred.promise;
-    },
-
-
-  }
-}]);
+      }
+    }]);
