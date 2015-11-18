@@ -5,9 +5,10 @@ module.exports = {
 
   all: function(req, res) {
 
-    Meetup.find().exec(function(err, meetups) {
-      console.log('all meet ups found');
-      console.log(meetups);
+    var subgroup = req.body._id;
+    var user = req.body.user_id;
+
+    Meetup.find({subgroup: subgroup, members: user}).exec(function(err, meetups) {
       if (!err) {
         res.send(meetups);
       } else {
@@ -19,26 +20,31 @@ module.exports = {
   create: function(req, res) {
 
     var meetup = new Meetup();
-    console.log('new meet up');
-    console.log(meetup);
 
-    console.log('body');
-    console.log(req.body);
-
-    meetup.course = req.body.course;
-    meetup.group = req.body.group;
+    meetup.subgroup = req.body.subgroup_id;
+    meetup.members = [req.body.user_id];
     meetup.date = req.body.date;
     meetup.time = req.body.time;
     meetup.location = req.body.location;
 
-    console.log('meetup to save');
-    console.log(meetup);
-
     meetup.save(function(err){
       if (!err) {
-        res.json(meetup);
+        res.send(meetup);
       } else {
         res.send(err, 403);
+      }
+    });
+  },
+
+  deleteMeetup: function(req, res) {
+
+    var meetup = req.body._id;
+
+    Meetup.remove({_id : meetup}).exec(function(err, meetup) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Meetup deleted');
       }
     });
   }

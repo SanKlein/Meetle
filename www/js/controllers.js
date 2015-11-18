@@ -23,7 +23,10 @@ angular.module('meetle.controllers', [])
       }
   ])
 
-  .controller('LoginCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', '$ionicSideMenuDelegate', function($rootScope, $scope, UserFactory, $window, $localstorage, $ionicSideMenuDelegate) {
+
+      // cannot open side menu when on login or signup
+      $ionicSideMenuDelegate.canDragContent(false);
 
       $scope.user = {
           username: '',
@@ -36,6 +39,9 @@ angular.module('meetle.controllers', [])
               $localstorage.setObject('currentUser', user);
               $rootScope.currentUser = user; // used to keep track of current user
 
+              // successful login now we can open up the side menu
+              $ionicSideMenuDelegate.canDragContent(true);
+
               $window.location.assign('#/groups');
           }, function(err) {
             console.log('error');
@@ -45,7 +51,10 @@ angular.module('meetle.controllers', [])
       };
   }])
 
-  .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', function($rootScope, $scope, UserFactory, $window, $localstorage) {
+  .controller('SignupCtrl', ['$rootScope', '$scope', 'UserFactory', '$window', '$localstorage', '$ionicSideMenuDelegate', function($rootScope, $scope, UserFactory, $window, $localstorage, $ionicSideMenuDelegate) {
+
+      // cannot open side menu when on login or signup
+      $ionicSideMenuDelegate.canDragContent(false);
 
       $scope.user = {
         username: '',
@@ -63,6 +72,9 @@ angular.module('meetle.controllers', [])
             UserFactory.signup($scope.user).then(function(user) {
               $localstorage.setObject('currentUser', user);
               $rootScope.currentUser = user; // used to keep track of current user
+
+              // successful login now we can open up the side menu
+              $ionicSideMenuDelegate.canDragContent(true);
 
               $window.location.assign('#/groups');
             }, function(err) {
@@ -154,66 +166,76 @@ angular.module('meetle.controllers', [])
       $window.location.assign('#/tab/chat');
     };
 
-    $scope.remove = function(post, index) {
-      $scope.subgroups.splice(index, 1);
-      $ionicListDelegate.closeOptionButtons();
+    $scope.remove = function(subgroup, index) {
+      SubGroupFactory.deleteSubGroup(subgroup).then(function(subgroup) {
+        $scope.subgroups.splice(index, 1);
+        $ionicListDelegate.closeOptionButtons();
+      });
     };
   }])
 
-  .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', function($rootScope, $scope, ChatFactory, $window) {
+  .controller('NewSubGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+    $scope.subgroup = {
+      subgroup_title: '',
+      _id: $localstorage.getObject('currentGroup')._id,
+      user_id: $localstorage.getObject('currentUser')._id
+    };
+
+    $scope.createSubGroup = function() {
+      SubGroupFactory.create($scope.subgroup).then(function(subgroup) {
+        $window.location.assign('#/subGroups');
+      });
+    };
+  }])
+
+  .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', function($rootScope, $scope, ChatFactory, $window, $localstorage) {
+
+    $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
 
     $scope.chatroom = {
       chats: [],
       text: ''
     };
 
-    ChatFactory.getChat().then(function(chats) {
-      if (chats.length) {
-        for (var i = 0; i < chats.length; i++) {
-          (function(index) {
-            chats[index].liked = false;
-            $scope.chatroom.chats.push(chats[index]);
-          })(i);
-        }
-      }
-    });
-
-    $scope.likeChat = function(chat, index) {
-      $scope.chatroom.chats[index].liked = !chat.liked;
-    };
-
-    $scope.addChat = function() {
-      console.log('add chat clicked');
-      var newChat = {
-        text: $scope.chatroom.text,
-        user_id: $rootScope.currentUser._id,
-        user_username: $rootScope.currentUser.username,
-        course : $rootScope.currentCourse._id,
-        group: $rootScope.currentGroup._id
-      };
-
-      ChatFactory.create(newChat).then(function(chat) {
-        console.log(chat);
-        if ($scope.chatroom.chats) {
-          $scope.chatroom.chats.push(chat);
-        } else {
-          $scope.chatroom.chats = [chat];
-        }
-      });
-
-      $scope.chatroom.text = '';
-    };
   }])
 
-  .controller('MeetupsCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', function($rootScope, $scope, MeetupFactory, $window) {
+  .controller('MeetupsCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', '$ionicListDelegate', function($rootScope, $scope, MeetupFactory, $window, $localstorage, $ionicListDelegate) {
+
+    $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
+
     $scope.meetups = [];
 
-    MeetupFactory.all().then(function(meetups) {
-      console.log('all meetups found');
-      console.log(meetups);
+    var subgroup = $localstorage.getObject('currentSubGroup');
+    subgroup.user_id = $localstorage.getObject('currentUser')._id;
+
+    MeetupFactory.all(subgroup).then(function(meetups) {
       if (meetups) {
         $scope.meetups = meetups;
       }
     });
 
+    $scope.remove = function(meetup, index) {
+      MeetupFactory.deleteMeetup(meetup).then(function(meetup) {
+        $scope.meetups.splice(index, 1);
+        $ionicListDelegate.closeOptionButtons();
+      });
+    };
+
   }])
+
+  .controller('NewMeetupCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', function($rootScope, $scope, MeetupFactory, $window, $localstorage) {
+      $scope.meetup = {
+        date: '',
+        time: '',
+        location: '',
+        user_id: $localstorage.getObject('currentUser')._id,
+        subgroup_id: $localstorage.getObject('currentSubGroup')._id
+      };
+
+      $scope.createMeetup = function() {
+        MeetupFactory.create($scope.meetup).then(function(meetup) {
+          $window.location.assign('#/tab/meetups');
+        })
+      };
+
+  }]);

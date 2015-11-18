@@ -1,0 +1,27 @@
+<ion-view view-title="NewMeetup">
+    <ion-header-bar class="bar bar-positive">
+        <div class="button button-clear">
+            <a class="button button-clear ion-chevron-left" ng-click="goBack()"></a>
+        </div>
+        <h1 class="title">New Meetup</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list>
+            <label class="item item-input">
+                <span class="input-label">Date</span>
+                <input class="text-field" type="text" placeholder="MM/DD/YYYY" ng-model="meetup.date">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Time</span>
+                <input class="text-field" type="text" placeholder= "HH:MM" ng-model="meetup.time">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Location</span>
+                <input class="text-field" type="text" ng-model="meetup.location">
+            </label>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-positive bar-footer footer-button">
+        <a class="button button-full button-clear" ng-click="createMeetup()" ng-disabled="!meetup.date || !meetup.time || !meetup.location">Create Meetup</a>
+    </div>
+</ion-view>

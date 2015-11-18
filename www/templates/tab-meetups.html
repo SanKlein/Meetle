@@ -1,16 +1,20 @@
 <ion-view view-title="Meetups">
   <ion-header-bar class="bar-positive header-bottom">
     <a class="button button-clear ion-chevron-left" ng-click="goBack()"></a>
-    <h1 class="title">{{currentGroup.title}} Meetups</h1>
-    <a class="button button-clear ion-plus-round"></a>
+    <h1 class="title">{{currentSubGroup.title}} Meetups</h1>
+    <a class="button button-clear ion-plus-round" ui-sref="newMeetup"></a>
   </ion-header-bar>
   <ion-content>
-    <ion-list>
-      <ion-list>
-        <a class="item item-text-wrap" ng-repeat="meetup in meetups track by $index" ng-click="loadMeetup(meetup)">
+    <ion-list can-swipe="true" show-delete="false">
+      <ion-item class="item item-text-wrap" ng-repeat="meetup in meetups track by $index">
+        <a class="button button-clear button-dark" ng-click="loadMeetup(meetup)">
           {{meetup.location}}  {{meetup.date}}  {{meetup.time}}
         </a>
-      </ion-list>
+        <a class="ion-ios-arrow-right arrow-button button button-clear button-dark" ng-click="loadMeetup(meetup)"></a>
+        <ion-option-button class="button-assertive" ng-click="remove(meetup, $index)">
+          Delete
+        </ion-option-button>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

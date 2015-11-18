@@ -73,6 +73,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
       controller: 'SubGroupCtrl'
     })
 
+    .state('newSubGroup', {
+        cache: false,
+        url: '/subgroup/new',
+        templateUrl: 'templates/newSubGroup.html',
+        controller: 'NewSubGroupCtrl'
+    })
+
     // setup an abstract state for the tabs directive
         .state('tab', {
           cache: false,
@@ -103,6 +110,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
                 controller: 'MeetupsCtrl'
             }
         }
+    })
+
+    .state('newMeetup', {
+        cache: false,
+        url: '/newMeetup',
+        templateUrl: 'templates/newMeetup.html',
+        controller: 'NewMeetupCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback

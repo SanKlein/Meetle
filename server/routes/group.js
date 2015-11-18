@@ -7,15 +7,11 @@ module.exports = {
   create : function(req, res) {
 
     var id = req.body.user_id;
-    console.log(id);
 
     var group = new Group();
 
     group.title = req.body.title;
-    console.log(req.body.title);
     group.members = [id];
-
-    console.log(group);
 
     group.save(function(err){
       if (!err) {
@@ -39,8 +35,6 @@ module.exports = {
   },
 
   deleteGroup: function(req, res) {
-    console.log('heres the group id');
-    console.log(req.body._id);
 
     var group = req.body._id;
 
@@ -48,7 +42,6 @@ module.exports = {
       if (err) {
         res.status(500).send('Internal server error.');
       } else {
-        console.log('delete group');
         res.status(200).send('Group deleted');
       }
     });

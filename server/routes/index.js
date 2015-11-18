@@ -31,13 +31,17 @@ module.exports = function(app) {
 
     app.post('/v1/subgroup/group', subgroup.getSubGroups);
 
+    app.post('/v1/subgroup/delete', subgroup.deleteSubGroup);
+
     app.post('/chat/add', chat.add);
 
     app.post('/chat/all', chat.all);
 
-    app.post('/meetups', meetup.all);
+    app.post('/v1/meetups', meetup.all);
 
-    app.post('/meetups/create', meetup.create);
+    app.post('/v1/meetup', meetup.create);
+
+    app.post('/v1/meetup/delete', meetup.deleteMeetup);
 
 };
 

@@ -34,6 +34,18 @@ module.exports = {
         res.send(err, 403);
       }
     });
+  },
+
+  deleteSubGroup: function(req, res) {
+    var subgroup = req.body._id;
+
+    SubGroup.remove({_id : subgroup}).exec(function(err, subgroup) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('SubGroup deleted');
+      }
+    });
   }
 
 };
