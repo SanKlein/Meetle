@@ -6,10 +6,10 @@
 - Tristan Kindig
 
 ## Overview:
-ClassCollaboration is a platform-independent application for students to easily collaborate in groups and arrange meeting times for projects.
+Meetle is a platform-independent application for people to easily collaborate in groups and arrange meeting times for projects and events.
 
 ## Meetings:
-- Informal communication via email and text message
+- Informal communication via email, text message, and GroupMe
 - Met once on 11-3-15
 - Met once on 11-5-15
 - Met once on 11-10-15 (11, Olin)
@@ -17,28 +17,27 @@ ClassCollaboration is a platform-independent application for students to easily 
 - Met once on 11-12-15 (11, Olin)
 - Met once on 11-16-15 (3, Featheringhill)
 - Met once on 11-17-15 (11, Olin)
+- Met once on 11-19=15 (11, Olin)
 
 ## User Stories:
-1. As a user I can add new classes I am in.
-2. As a user I can create new groups within one of my classes.
-3. As a user I can pick the students in my class that I want to be in my group.
-4. As a user I can remove classes I am in.
-5. As a user I can view all the classes I am in.
-6. As a user I can send messages to the groups I am in.
-7. As a user I can make new meetups for a specific group I am in.
-8. As a user I can choose which classmates I want to attend a meetup.
+1. As a user I can add new groups I am in.
+2. As a user I can create new subgroups within one of my groups.
+3. As a user I can add people to my group.
+4. As a user I can remove groups I am in.
+5. As a user I can view all the groups I am in.
+6. As a user I can send messages to the subgroups I am in.
+7. As a user I can make new meetups for a specific subgroup I am in.
+8. As a user I can choose which groupmates I want to attend a meetup.
 9. As a user I can choose the location date and time of a new meetup.
-10. As a user I can leave groups that I am in.
-11. As a user I can see which groups have new messages.
-12. As a user I can send messages to the class to figure out when homeworks are due.
-13. As a user I can mute class chat groups.
-14. As a teacher I can send important messages to the class.
-15. As a teacher I can set up meetups with the whole class or individual students.
-16. As a user I can easily see when I have meetups.
-17. As a user I can see details about existing meetups and groups.
-18. As a user I can add students to an existing meetup.
-19. As a user I can add students to an existing group.
-20. As a user I can like other classmates messages.
+10. As a user I can leave subgroups that I am in.
+11. As a user I can see which subgroups have new messages.
+12. As a user I can send messages to the group to figure out when things are due.
+13. As a user I can mute subgroup chats.
+14. As a user I can easily see when I have meetups.
+15. As a user I can see details about existing meetups and subgroups.
+16. As a user I can add people to an existing meetup.
+17. As a user I can add people to an existing subgroup.
+18. As a user I can like other groupmates messages.
 
 ## Development Guidelines:
 - Development is in Javascript using NodeJS, AngularJS, Ionic, HTML, and CSS.
