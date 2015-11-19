@@ -221,6 +221,12 @@ angular.module('meetle.controllers', [])
       });
     };
 
+        $scope.load = function(meetup) {
+            MeetupFactory.loadMeetup(meetup).then(function(meetup) {
+                $window.location.assign('#/tab/meetups');
+            });
+        }
+
   }])
 
   .controller('NewMeetupCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', function($rootScope, $scope, MeetupFactory, $window, $localstorage) {
