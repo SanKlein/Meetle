@@ -17,7 +17,7 @@ Meetle is a platform-independent application for people to easily collaborate in
 - Met once on 11-12-15 (11, Olin)
 - Met once on 11-16-15 (3, Featheringhill)
 - Met once on 11-17-15 (11, Olin)
-- Met once on 11-19=15 (11, Olin)
+- Met once on 11-19-15 (11, Olin)
 
 ## User Stories:
 1. As a user I can add new groups I am in.
@@ -38,6 +38,8 @@ Meetle is a platform-independent application for people to easily collaborate in
 16. As a user I can add people to an existing meetup.
 17. As a user I can add people to an existing subgroup.
 18. As a user I can like other groupmates messages.
+19. As a user I can log in and out.
+20. As a user I can edit my profile.
 
 ## Development Guidelines:
 - Development is in Javascript using NodeJS, AngularJS, Ionic, HTML, and CSS.
