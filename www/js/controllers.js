@@ -8,6 +8,9 @@ angular.module('meetle.controllers', [])
         $rootScope.logout = function() {
             $rootScope.currentUser = null;
             $localstorage.set('currentUser', '');
+            $localstorage.set('currentGroup', '');
+            $localstorage.set('currentSubGroup', '');
+            $localstorage.set('currentMeetup', '');
 
             $window.location.assign('#/login');
         };
@@ -99,7 +102,10 @@ angular.module('meetle.controllers', [])
 
         $scope.deleteAccount = function() {
             UserFactory.deleteUser($scope.user).then(function(user) {
-                $localstorage.set('currentUser', undefined);
+                $localstorage.set('currentUser', '');
+                $localstorage.set('currentGroup', '');
+                $localstorage.set('currentSubGroup', '');
+                $localstorage.set('currentMeetup', '');
                 $window.location.assign('#/login');
             });
         };
