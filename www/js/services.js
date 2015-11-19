@@ -293,7 +293,23 @@ angular.module('meetle.services', [])
               ;
 
               return deferred.promise;
-          }
+          },
 
+          update: function(meetup) {
+
+              var deferred = $q.defer();
+
+              $http.put(base + '/v1/meetup', meetup)
+                  .success(function (meetup) {
+                      deferred.resolve(meetup);
+                  })
+                  .error(function (err) {
+                      deferred.reject(err);
+                  })
+              ;
+
+              return deferred.promise;
+
+          }
       }
     }]);

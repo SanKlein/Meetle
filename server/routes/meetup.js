@@ -47,6 +47,22 @@ module.exports = {
         res.status(200).send('Meetup deleted');
       }
     });
+  },
+
+  update: function (req, res) {
+    var id = req.body._id;
+    var date = req.body.date;
+    var time = req.body.time;
+    var location = req.body.location;
+
+    Meetup.findOneAndUpdate({ _id : id }, { date: date, time:time, location:location}, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Updated meeting: ' + location + " " + date + " " + time);
+        res.status(200).send('Meeting updated');
+      }
+    });
   }
 
 };

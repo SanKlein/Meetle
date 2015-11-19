@@ -222,6 +222,7 @@ angular.module('meetle.controllers', [])
     };
 
     $scope.loadMeetup = function(meetup) {
+        $localstorage.setObject('currentMeetup', meetup);
         $window.location.assign('#/editMeetup');
     };
 
@@ -242,4 +243,16 @@ angular.module('meetle.controllers', [])
         })
       };
 
-  }]);
+  }])
+
+    .controller('EditMeetupCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', function($rootScope, $scope, MeetupFactory, $window, $localstorage) {
+        $scope.meetup = $localstorage.getObject('currentMeetup');
+
+        $scope.editMeetup = function() {
+            MeetupFactory.update($scope.meetup).then(function(meetup) {
+                $localstorage.setObject('currentMeetup', $scope.meetup);
+                $window.location.assign('#/tab/meetups');
+            });
+        };
+
+    }]);

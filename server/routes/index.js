@@ -43,5 +43,7 @@ module.exports = function(app) {
 
     app.post('/v1/meetup/delete', meetup.deleteMeetup);
 
+    app.put('/v1/meetup', meetup.update);
+
 };
 

@@ -117,6 +117,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         url: '/newMeetup',
         templateUrl: 'templates/newMeetup.html',
         controller: 'NewMeetupCtrl'
+    })
+
+    .state('editMeetup', {
+        cache: false,
+        url: '/editMeetup',
+        templateUrl: 'templates/editMeetup.html',
+        controller: 'EditMeetupCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback
