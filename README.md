@@ -52,7 +52,7 @@ Meetle is a platform-independent application for people to easily collaborate in
 - All test code is located in...
 
 
-## Early version run-through
+## Early version run-through (Windows)
 1. Install MongoDB (https://www.mongodb.org/downloads?_ga=1.162870581.845702189.1447711911#production)
 2. **mkdir c:/data/db**
 3. **c:/mongodb/bin/mongod.exe**
