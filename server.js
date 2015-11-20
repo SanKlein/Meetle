@@ -2,7 +2,6 @@ var port = 3000;
 
 var express           = require('express'),
     mongoose          = require('mongoose'),
-    uriUtil           = require('mongodb-uri'),
     cookieParser      = require('cookie-parser'),
     methodOverride    = require('method-override'),
     session           = require('express-session'),

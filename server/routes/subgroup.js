@@ -1,5 +1,6 @@
 var mongoose = require("mongoose"),
-  SubGroup = require('../models/subgroup');
+    Group = require('../models/group'),
+    SubGroup = require('../models/subgroup');
 
 module.exports = {
 
@@ -44,6 +45,20 @@ module.exports = {
         res.status(500).send('Internal server error.');
       } else {
         res.status(200).send('SubGroup deleted');
+      }
+    });
+  },
+
+  changeGroupName: function (req, res) {
+    var id = req.body._id;
+    var title = req.body.title;
+
+    Group.findOneAndUpdate({ _id : id }, { title: title }, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Updated group: ' + title);
+        res.status(200).send('Group updated');
       }
     });
   }

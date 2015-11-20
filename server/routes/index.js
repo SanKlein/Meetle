@@ -23,6 +23,8 @@ module.exports = function(app) {
 
     app.post('/v1/group', group.create);
 
+    app.put('/v1/group/name', subgroup.changeGroupName);
+
     app.post('/v1/group/delete', group.deleteGroup);
 
     app.get('/v1/groups/:id', group.getGroups);

@@ -206,6 +206,23 @@ angular.module('meetle.services', [])
                   ;
 
                   return deferred.promise;
+              },
+
+              changeGroupName: function(group) {
+
+                  var deferred = $q.defer();
+
+                  $http.put(base + '/v1/group/name', group)
+                      .success(function (group) {
+                          deferred.resolve(group);
+                      })
+                      .error(function (err) {
+                          deferred.reject(err);
+                      })
+                  ;
+
+                  return deferred.promise;
+
               }
           }
     }])

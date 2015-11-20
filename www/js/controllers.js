@@ -133,8 +133,6 @@ angular.module('meetle.controllers', [])
         };
 
         $scope.remove = function(group, index) {
-            console.log('group to remove');
-            console.log(group);
             GroupFactory.deleteGroup(group).then(function(deletedGroup) {
                 console.log(deletedGroup);
                 $scope.groups.splice(index, 1);
@@ -173,6 +171,7 @@ angular.module('meetle.controllers', [])
 
         $rootScope.currentGroup = $localstorage.getObject('currentGroup');
         $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.group = $localstorage.getObject('currentGroup');
 
         SubGroupFactory.getSubGroups($rootScope.currentGroup).then(function(subgroups) {
             $scope.subgroups = subgroups;
@@ -188,6 +187,14 @@ angular.module('meetle.controllers', [])
             SubGroupFactory.deleteSubGroup(subgroup).then(function(subgroup) {
                 $scope.subgroups.splice(index, 1);
                 $ionicListDelegate.closeOptionButtons();
+            });
+        };
+
+        $scope.editGroupName = function() {
+            SubGroupFactory.changeGroupName($scope.group).then(function(msg) {
+                console.log(msg);
+                $localstorage.setObject('currentGroup', $scope.group);
+                $window.location.assign('#/groupSettings');
             });
         };
     }])
