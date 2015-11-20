@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-  SubGroup = require('../models/subgroup');
+    SubGroup = require('../models/subgroup');
 
 module.exports = {
 

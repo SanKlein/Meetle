@@ -2,7 +2,7 @@
   <ion-header-bar class="bar bar-positive">
     <a class="button button-clear ion-chevron-left" ui-sref="groups"></a>
     <h1 class="title">{{currentGroup.title}}</h1>
-    <a class="button ion-plus-round button-clear" ui-sref="newSubGroup"></a>
+    <a class="button button-clear ion-gear-a" ui-sref="groupSettings"></a>
   </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
@@ -10,7 +10,7 @@
         <a class="button button-clear button-dark">
           {{subgroup.title}}
         </a>
-        <a class="button button-clear arrow-button button-dark ion-ios-arrow-right" ng-click="loadSubGroup(subgroup, $index)"></a>
+        <a class="button button-clear arrow-button button-dark ion-ios-arrow-right"></a>
         <ion-option-button class="button-assertive">
           Leave
         </ion-option-button>

@@ -124,6 +124,20 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         url: '/editMeetup',
         templateUrl: 'templates/editMeetup.html',
         controller: 'EditMeetupCtrl'
+    })
+
+    .state('groupSettings', {
+        cache: false,
+        url: '/groupSettings',
+        templateUrl: 'templates/groupSettings.html',
+        controller: 'SubGroupCtrl'
+    })
+
+    .state('editGroupName', {
+        cache: false,
+        url: '/editGroupName',
+        templateUrl: 'templates/editGroupName.html',
+        controller: 'SubGroupCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback
