@@ -45,5 +45,34 @@ module.exports = {
         res.status(200).send('Group deleted');
       }
     });
+  },
+
+  changeGroupName: function (req, res) {
+    var id = req.body._id;
+    var title = req.body.title;
+
+    Group.findOneAndUpdate({ _id : id }, { title: title }, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Updated group: ' + title);
+        res.status(200).send('Group updated');
+      }
+    });
+  },
+
+  leaveGroup: function (req, res) {
+    var user_id = req.params.id;
+    var group_id = req.body._id;
+
+    Group.findOneAndUpdate({ _id : group_id }, { $pull: { members : { _id : user_id } } }, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Removed user: ' + user_id);
+        res.status(200).send('Removed user from group');
+      }
+    });
   }
+
 };

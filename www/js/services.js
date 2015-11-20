@@ -223,6 +223,23 @@ angular.module('meetle.services', [])
 
                   return deferred.promise;
 
+              },
+
+              leaveCurrentGroup: function(group, user) {
+
+                  var deferred = $q.defer();
+
+                  $http.put(base + '/v1/group/leave/' + user._id, group)
+                      .success(function (msg) {
+                          deferred.resolve(msg);
+                      })
+                      .error(function (err) {
+                          deferred.reject(err);
+                      })
+                  ;
+
+                  return deferred.promise;
+
               }
           }
     }])

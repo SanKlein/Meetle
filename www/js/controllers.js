@@ -197,6 +197,13 @@ angular.module('meetle.controllers', [])
                 $window.location.assign('#/groupSettings');
             });
         };
+
+        $scope.leaveGroup = function() {
+            SubGroupFactory.leaveCurrentGroup($scope.group, $scope.user).then(function(msg) {
+                $localstorage.set('currentGroup', '');
+                $window.location.assign('#/groups');
+            });
+        }
     }])
 
     .controller('NewSubGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
