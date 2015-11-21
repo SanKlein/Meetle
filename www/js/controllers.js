@@ -131,7 +131,7 @@ angular.module('meetle.controllers', [])
         };
 
         $scope.leaveGroup = function(group, index) {
-            group.user = $localstorage.getObject('currenUser')._id;
+            group.user = $localstorage.getObject('currentUser')._id;
             SubGroupFactory.leaveCurrentGroup(group).then(function(msg) {
                 console.log('Left Group');
                 $scope.groups.splice(index, 1);
