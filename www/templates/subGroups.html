@@ -4,6 +4,9 @@
     <h1 class="title">{{currentGroup.title}}</h1>
     <a class="button button-clear ion-gear-a" ui-sref="groupSettings"></a>
   </ion-header-bar>
+  <ion-header-bar class="bar bar-subheader">
+    <a class="button button-clear button-positive" ui-sref="newSubGroup">Add New Subgroup</a>
+  </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
       <ion-item class="item-text-wrap" ng-click="loadSubGroup(subgroup, $index)" ng-repeat="subgroup in subgroups track by $index">

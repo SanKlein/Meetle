@@ -32,6 +32,10 @@ div.footer-button a.button.button-full {
   right: 10px;
 }
 
+.bar-subheader {
+  text-align: center;
+}
+
 /* formats entry text and user search bar */
 .bar.item-input-inset .item-input-wrapper input {
   width: 99%;
