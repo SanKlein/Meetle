@@ -33,7 +33,11 @@ module.exports = function(app) {
 
     app.post('/v1/subgroup', subgroup.create);
 
-    app.post('/v1/subgroup/group', subgroup.getSubGroups);
+    app.put('/v1/subgroup/name', subgroup.changeSubGroupName);
+
+    app.post('/v1/subgroups/group', subgroup.getSubGroups);
+
+    app.post('/v1/subgroup/leave', subgroup.leaveSubGroup);
 
     app.post('/v1/subgroup/delete', subgroup.deleteSubGroup);
 

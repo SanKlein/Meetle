@@ -109,7 +109,7 @@ angular.module('meetle.controllers', [])
         };
     }])
 
-    .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+    .controller('GroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
 
         $scope.user = $localstorage.getObject('currentUser');
         if (!$scope.user.username) $window.location.assign('#/login');
@@ -136,25 +136,25 @@ angular.module('meetle.controllers', [])
 
         $scope.leaveGroup = function(group, index) {
             group.user = $localstorage.getObject('currentUser')._id;
-            SubGroupFactory.leaveCurrentGroup(group).then(function(msg) {
+            GroupFactory.leaveCurrentGroup(group).then(function(msg) {
                 console.log('Left Group');
                 $scope.groups.splice(index, 1);
                 $ionicListDelegate.closeOptionButtons();
             });
-        }
+        };
     }])
 
-    .controller('GroupSettingsCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate, $localstorage) {
+    .controller('GroupSettingsCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
 
         $rootScope.currentGroup = $localstorage.getObject('currentGroup');
         $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
         $scope.group = $rootScope.currentGroup;
 
         $scope.leaveGroup = function() {
-            SubGroupFactory.leaveCurrentGroup($scope.group).then(function(msg) {
+            GroupFactory.leaveCurrentGroup($scope.group).then(function(msg) {
                 $window.location.assign('#/groups');
             });
-        }
+        };
     }])
 
     .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
@@ -178,14 +178,14 @@ angular.module('meetle.controllers', [])
         };
     }])
 
-    .controller('GroupNameCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+    .controller('GroupNameCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
 
         $rootScope.currentGroup = $localstorage.getObject('currentGroup');
         $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
         $scope.group = $localstorage.getObject('currentGroup');
 
         $scope.editGroupName = function() {
-            SubGroupFactory.changeGroupName($scope.group).then(function(msg) {
+            GroupFactory.changeGroupName($scope.group).then(function(msg) {
                 console.log(msg);
                 $localstorage.setObject('currentGroup', $scope.group);
                 $window.location.assign('#/groupSettings');
@@ -224,6 +224,28 @@ angular.module('meetle.controllers', [])
                 $ionicListDelegate.closeOptionButtons();
             });
         };
+
+        $scope.leaveSubGroup = function(subgroup, index) {
+            subgroup.user = $localstorage.getObject('currentUser')._id;
+            SubGroupFactory.leaveCurrentSubGroup(subgroup).then(function(msg) {
+                console.log('Left Subgroup');
+                $scope.subgroups.splice(index, 1);
+                $ionicListDelegate.closeOptionButtons();
+            });
+        };
+    }])
+
+    .controller('SubGroupSettingsCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate, $localstorage) {
+
+        $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
+        $rootScope.currentSubGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.subGroup = $rootScope.currentSubGroup;
+
+        $scope.leaveSubGroup = function() {
+            SubGroupFactory.leaveCurrentSubGroup($scope.subGroup).then(function(msg) {
+                $window.location.assign('#/subGroups');
+            });
+        }
     }])
 
     .controller('NewSubGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
@@ -242,6 +264,22 @@ angular.module('meetle.controllers', [])
                 $window.location.assign('#/subGroups');
             });
         };
+    }])
+
+    .controller('SubGroupNameCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate, $localstorage) {
+
+        $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
+        $rootScope.currentSubGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.subgroup = $localstorage.getObject('currentSubGroup');
+
+        $scope.editSubGroupName = function() {
+            SubGroupFactory.changeSubGroupName($scope.subgroup).then(function(msg) {
+                console.log(msg);
+                $localstorage.setObject('currentSubGroup', $scope.subgroup);
+                $window.location.assign('#/subGroupSettings');
+            });
+        };
+
     }])
 
     .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', function($rootScope, $scope, ChatFactory, $window, $localstorage) {

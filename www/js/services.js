@@ -153,6 +153,40 @@ angular.module('meetle.services', [])
                 ;
 
                 return deferred.promise;
+            },
+
+            changeGroupName: function(group) {
+
+                var deferred = $q.defer();
+
+                $http.put(base + '/v1/group/name', group)
+                    .success(function (msg) {
+                        deferred.resolve(msg);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
+            },
+
+            leaveCurrentGroup: function(group) {
+
+                var deferred = $q.defer();
+
+                $http.post(base + '/v1/group/leave', group)
+                    .success(function (msg) {
+                        deferred.resolve(msg);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
+                ;
+
+                return deferred.promise;
+
             }
         }
     }])
@@ -179,9 +213,9 @@ angular.module('meetle.services', [])
               getSubGroups: function (group) {
                   var deferred = $q.defer();
 
-                  $http.post(base + '/v1/subgroup/group', group)
-                      .success(function (subgroups) {
-                          deferred.resolve(subgroups);
+                  $http.post(base + '/v1/subgroups/group', group)
+                      .success(function (msg) {
+                          deferred.resolve(msg);
                       })
                       .error(function (err) {
                           deferred.reject(err);
@@ -208,13 +242,13 @@ angular.module('meetle.services', [])
                   return deferred.promise;
               },
 
-              changeGroupName: function(group) {
+              changeSubGroupName: function(subgroup) {
 
                   var deferred = $q.defer();
 
-                  $http.put(base + '/v1/group/name', group)
-                      .success(function (group) {
-                          deferred.resolve(group);
+                  $http.put(base + '/v1/subgroup/name', subgroup)
+                      .success(function (msg) {
+                          deferred.resolve(msg);
                       })
                       .error(function (err) {
                           deferred.reject(err);
@@ -225,11 +259,11 @@ angular.module('meetle.services', [])
 
               },
 
-              leaveCurrentGroup: function(group) {
+              leaveCurrentSubGroup: function(subgroup) {
 
                   var deferred = $q.defer();
 
-                  $http.post(base + '/v1/group/leave', group)
+                  $http.post(base + '/v1/subgroup/leave', subgroup)
                       .success(function (msg) {
                           deferred.resolve(msg);
                       })

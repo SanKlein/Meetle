@@ -46,6 +46,34 @@ module.exports = {
         res.status(200).send('SubGroup deleted');
       }
     });
+  },
+
+  changeSubGroupName: function (req, res) {
+    var id = req.body._id;
+    var title = req.body.title;
+
+    SubGroup.findOneAndUpdate({ _id : id }, { title: title }, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Updated subgroup: ' + title);
+        res.status(200).send('Subgroup updated');
+      }
+    });
+  },
+
+  leaveSubGroup: function (req, res) {
+    var user_id = req.body.user;
+    var subgroup_id = req.body._id;
+
+    SubGroup.findOneAndUpdate({ _id : subgroup_id }, { $pull: { members : user_id } }, function(err, subgroup) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        console.log('Removed user: ' + user_id);
+        res.status(200).send('Removed user from subgroup');
+      }
+    });
   }
 
 };

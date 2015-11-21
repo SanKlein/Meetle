@@ -87,11 +87,25 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
       controller: 'SubGroupCtrl'
     })
 
+    .state('subGroupSettings', {
+        cache: false,
+        url: '/subGroupSettings',
+        templateUrl: 'templates/subGroupSettings.html',
+        controller: 'SubGroupSettingsCtrl'
+    })
+
     .state('newSubGroup', {
         cache: false,
         url: '/subgroup/new',
         templateUrl: 'templates/newSubGroup.html',
         controller: 'NewSubGroupCtrl'
+    })
+
+    .state('editSubGroupName', {
+        cache: false,
+        url: '/editSubGroupName',
+        templateUrl: 'templates/editSubGroupName.html',
+        controller: 'SubGroupNameCtrl'
     })
 
     // setup an abstract state for the tabs directive
