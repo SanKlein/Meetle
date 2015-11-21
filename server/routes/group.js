@@ -62,10 +62,10 @@ module.exports = {
   },
 
   leaveGroup: function (req, res) {
-    var user_id = req.params.id;
+    var user_id = req.body.user;
     var group_id = req.body._id;
 
-    Group.findOneAndUpdate({ _id : group_id }, { $pull: { members : { _id : user_id } } }, function(err) {
+    Group.findOneAndUpdate({ _id : group_id }, { $pull: { members : user_id } }, function(err, group) {
       if (err) {
         res.status(500).send('Internal server error.');
       } else {

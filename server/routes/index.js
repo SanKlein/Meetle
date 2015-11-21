@@ -27,7 +27,7 @@ module.exports = function(app) {
 
     app.post('/v1/group/delete', group.deleteGroup);
 
-    app.put('/v1/group/leave/:id', group.leaveGroup);
+    app.post('/v1/group/leave', group.leaveGroup);
 
     app.get('/v1/groups/:id', group.getGroups);
 

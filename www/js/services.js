@@ -225,11 +225,11 @@ angular.module('meetle.services', [])
 
               },
 
-              leaveCurrentGroup: function(group, user) {
+              leaveCurrentGroup: function(group) {
 
                   var deferred = $q.defer();
 
-                  $http.put(base + '/v1/group/leave/' + user._id, group)
+                  $http.post(base + '/v1/group/leave', group)
                       .success(function (msg) {
                           deferred.resolve(msg);
                       })

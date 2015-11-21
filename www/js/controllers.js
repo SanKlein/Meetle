@@ -72,8 +72,6 @@ angular.module('meetle.controllers', [])
                 $scope.user.error = "Passwords do not match";
             } else {
                 UserFactory.signup($scope.user).then(function(user) {
-                    $localstorage.setObject('currentUser', user);
-                    $rootScope.currentUser = user; // used to keep track of current user
 
                     // successful login now we can open up the side menu
                     $ionicSideMenuDelegate.canDragContent(true);
@@ -141,6 +139,20 @@ angular.module('meetle.controllers', [])
         };
     }])
 
+    .controller('GroupSettingsCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate, $localstorage) {
+
+        $rootScope.currentGroup = $localstorage.getObject('currentGroup');
+        $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.group = $rootScope.currentGroup;
+
+        $scope.leaveGroup = function() {
+            SubGroupFactory.leaveCurrentGroup($scope.group).then(function(msg) {
+                $localstorage.set('currentGroup', '');
+                $window.location.assign('#/groups');
+            });
+        }
+    }])
+
     .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
 
         $scope.user = $localstorage.getObject('currentUser');
@@ -160,6 +172,22 @@ angular.module('meetle.controllers', [])
                 });
             });
         };
+    }])
+
+    .controller('GroupNameCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+
+        $rootScope.currentGroup = $localstorage.getObject('currentGroup');
+        $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.group = $localstorage.getObject('currentGroup');
+
+        $scope.editGroupName = function() {
+            SubGroupFactory.changeGroupName($scope.group).then(function(msg) {
+                console.log(msg);
+                $localstorage.setObject('currentGroup', $scope.group);
+                $window.location.assign('#/groupSettings');
+            });
+        };
+
     }])
 
     .controller('SubGroupCtrl', ['$rootScope', '$scope', 'SubGroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, SubGroupFactory, $window, $ionicListDelegate, $localstorage) {
