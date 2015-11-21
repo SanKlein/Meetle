@@ -9,8 +9,8 @@
       <ion-item class="item item-text-wrap" ng-click="loadGroup(group)" ng-repeat="group in groups track by $index">
         <a class="button button-clear button-dark">{{group.title}}</a>
         <a class="ion-ios-arrow-right arrow-button button button-clear button-dark"></a>
-        <ion-option-button class="button-assertive" ng-click="remove(group, $index)">
-          Remove
+        <ion-option-button class="button-assertive" ng-click="leaveGroup(group, $index)">
+          Leave
         </ion-option-button>
       </ion-item>
     </ion-list>
