@@ -333,6 +333,8 @@ angular.module('meetle.controllers', [])
         $scope.user = $localstorage.getObject('currentUser');
         if (!$scope.user.username) $window.location.assign('#/login');
 
+        MeetupFactory.loadMap();
+
         $scope.meetup = {
             date: '',
             time: '',
@@ -346,7 +348,6 @@ angular.module('meetle.controllers', [])
                 $window.location.assign('#/tab/meetups');
             })
         };
-
     }])
 
     .controller('EditMeetupCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', function($rootScope, $scope, MeetupFactory, $window, $localstorage) {
@@ -355,6 +356,10 @@ angular.module('meetle.controllers', [])
         if (!$scope.user.username) $window.location.assign('#/login');
 
         $scope.meetup = $localstorage.getObject('currentMeetup');
+
+        MeetupFactory.loadMap().then(function(map) {
+           // Do something
+        });
 
         $scope.editMeetup = function() {
             MeetupFactory.update($scope.meetup).then(function(meetup) {

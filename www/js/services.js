@@ -378,6 +378,17 @@ angular.module('meetle.services', [])
 
               return deferred.promise;
 
+          },
+
+          loadMap: function() {
+              var map = L.map('map').setView([36.1473, -86.777], 13);
+
+              L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                  maxZoom: 18,
+                  id: 'owensmw.cifg4vliz9e8wsdknkx6exs9n',
+                  accessToken: 'pk.eyJ1Ijoib3dlbnNtdyIsImEiOiJjaWZnNHZtcjQ4MzN1cjdseG9pcTRndDMxIn0.MFM6T8R_y87GX8v214JFOw'
+              }).addTo(map);
           }
       }
     }]);
