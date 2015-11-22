@@ -7,7 +7,8 @@ var express           = require('express'),
     methodOverride    = require('method-override'),
     session           = require('express-session'),
     logger            = require('morgan'),
-    bodyParser        = require('body-parser');
+    bodyParser        = require('body-parser'),
+    socket            = require('socket.io');
 
 var app = express();
 

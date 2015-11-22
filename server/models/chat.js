@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    io = require('socket.io'),
     User = require('./user'),
     SubGroup = require('./subgroup');
 

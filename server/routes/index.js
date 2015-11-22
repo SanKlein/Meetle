@@ -46,4 +46,3 @@ module.exports = function(app) {
     app.put('/v1/meetup', meetup.update);
 
 };
-

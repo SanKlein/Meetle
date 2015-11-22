@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     User = require('./user'),
-    Group = require('./group');
+    Group = require('./group'),
+    Chat = require('./chat');
 
 var SubGroup = new mongoose.Schema({
   members: [{
@@ -17,7 +18,11 @@ var SubGroup = new mongoose.Schema({
   dateCreated: {
     type: Date,
     default: Date.now
-  }
+  },
+  chats: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Chat'
+  }],
 });
 
 module.exports = mongoose.model('SubGroup', SubGroup);

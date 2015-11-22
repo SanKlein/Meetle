@@ -211,39 +211,37 @@ angular.module('meetle.services', [])
     }])
 
     .factory('ChatFactory', ['$q', '$http', function($q, $http) {
-      return {
+        return {
 
-        create: function(chat) {
-          var deferred = $q.defer();
+            create: function(chat) {
+                var deferred = $q.defer();
 
-          $http.post(base + '/chat/add', chat)
-            .success(function(message) {
-              deferred.resolve(message);
-            })
-            .error(function(err) {
-              deferred.reject(err);
-            })
-          ;
+                $http.post(base + '/chat/add', chat)
+                .success(function(message) {
+                    deferred.resolve(message);
+                })
+                .error(function(err) {
+                    deferred.reject(err);
+                });
 
-          return deferred.promise;
-        },
+                return deferred.promise;
+            },
 
-        getChat: function() {
-          var deferred = $q.defer();
+            getChat: function() {
+                var deferred = $q.defer();
 
-          $http.post(base + '/chat/all')
-            .success(function(chats) {
-              deferred.resolve(chats);
-            })
-            .error(function(err) {
-              deferred.reject(err);
-            })
-          ;
+                $http.post(base + '/chat/all')
+                .success(function(chats) {
+                    deferred.resolve(chats);
+                })
+                .error(function(err) {
+                    deferred.reject(err);
+                });
 
-          return deferred.promise;
+                return deferred.promise;
+            }
+
         }
-
-      }
     }])
 
     .factory('MeetupFactory', ['$q', '$http', function($q, $http) {

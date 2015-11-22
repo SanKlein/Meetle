@@ -221,6 +221,7 @@ angular.module('meetle.controllers', [])
             chats: [],
             text: ''
         };
+
     }])
 
     .controller('MeetupsCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', '$ionicListDelegate', function($rootScope, $scope, MeetupFactory, $window, $localstorage, $ionicListDelegate) {
