@@ -48,6 +48,18 @@ module.exports = {
         res.status(200).send('Meeting updated');
       }
     });
+  },
+
+  deleteMeetup: function (req, res) {
+    var meetup_id = req.body._id;
+
+    Meetup.remove({_id : meetup_id}).exec(function(err, meetup) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Meetup deleted');
+      }
+    });
   }
 
 };

@@ -20,8 +20,6 @@
                 <input class="text-field" type="text" ng-model="meetup.location">
             </label>
         </ion-list>
+        <button class="button button-block button-positive" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="createMeetup()">Create Meetup</button>
     </ion-content>
-    <div class="bar bar-positive bar-footer footer-button">
-        <a class="button button-full button-clear" ng-click="createMeetup()" ng-disabled="!meetup.date || !meetup.time || !meetup.location">Create Meetup</a>
-    </div>
 </ion-view>

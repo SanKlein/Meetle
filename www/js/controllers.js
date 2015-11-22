@@ -537,4 +537,11 @@ angular.module('meetle.controllers', [])
             });
         };
 
+        $scope.remove = function() {
+            MeetupFactory.deleteMeetup($scope.meetup).then(function(meetup) {
+                $localstorage.setObject('currentMeetup', '');
+                $window.location.assign('#/tab/meetups');
+            });
+        };
+
     }]);
