@@ -91,12 +91,24 @@ module.exports = {
     });
   },
 
-  all: function (req, res) {
+  loadUsers: function (req, res) {
     User.find().exec(function(err, users) {
       if (users) {
-        res.send(users);
+        res.status(200).send(users);
       } else {
-        res.send(err);
+        res.status(500).send(err);
+      }
+    })
+  },
+
+  load: function (req, res) {
+    var id = req.body.id;
+
+    User.find({_id: id}).exec(function(err, user) {
+      if (user) {
+        res.status(200).send(user);
+      } else {
+        res.status(500).send(err);
       }
     })
   }

@@ -59,6 +59,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'GroupCtrl'
     })
 
+    .state('newGroup', {
+        cache: false,
+        url: '/group/new',
+        templateUrl: 'templates/newGroup.html',
+        controller: 'NewGroupCtrl'
+    })
+
     .state('groupSettings', {
         cache: false,
         url: '/groupSettings',
@@ -66,11 +73,18 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'GroupSettingsCtrl'
     })
 
-    .state('newGroup', {
+    .state('addGroupMembers', {
         cache: false,
-        url: '/group/new',
-        templateUrl: 'templates/newGroup.html',
-        controller: 'NewGroupCtrl'
+        url: '/group/addMembers',
+        templateUrl: 'templates/AddGroupMembers.html',
+        controller: 'AddGroupMembersCtrl'
+    })
+
+    .state('removeGroupMembers', {
+        cache: false,
+        url: '/group/removeMembers',
+        templateUrl: 'templates/RemoveGroupMembers.html',
+        controller: 'RemoveGroupMembersCtrl'
     })
 
     .state('editGroupName', {
@@ -87,6 +101,13 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
       controller: 'SubGroupCtrl'
     })
 
+    .state('newSubGroup', {
+        cache: false,
+        url: '/subgroup/new',
+        templateUrl: 'templates/newSubGroup.html',
+        controller: 'NewSubGroupCtrl'
+    })
+
     .state('subGroupSettings', {
         cache: false,
         url: '/subGroupSettings',
@@ -94,11 +115,18 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'SubGroupSettingsCtrl'
     })
 
-    .state('newSubGroup', {
+    .state('addSubGroupMembers', {
         cache: false,
-        url: '/subgroup/new',
-        templateUrl: 'templates/newSubGroup.html',
-        controller: 'NewSubGroupCtrl'
+        url: '/subGroup/addMembers',
+        templateUrl: 'templates/AddSubGroupMembers.html',
+        controller: 'AddSubGroupMembersCtrl'
+    })
+
+    .state('removeSubGroupMembers', {
+        cache: false,
+        url: '/subGroup/removeMembers',
+        templateUrl: 'templates/RemoveSubGroupMembers.html',
+        controller: 'RemoveSubGroupMembersCtrl'
     })
 
     .state('editSubGroupName', {
@@ -152,7 +180,7 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         url: '/editMeetup',
         templateUrl: 'templates/editMeetup.html',
         controller: 'EditMeetupCtrl'
-    })
+    });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');

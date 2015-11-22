@@ -72,6 +72,8 @@ angular.module('meetle.controllers', [])
                 $scope.user.error = "Passwords do not match";
             } else {
                 UserFactory.signup($scope.user).then(function(user) {
+                    $localstorage.setObject('currentUser', user);
+                    $rootScope.currentUser = user; // used to keep track of current user
 
                     // successful login now we can open up the side menu
                     $ionicSideMenuDelegate.canDragContent(true);
@@ -144,19 +146,6 @@ angular.module('meetle.controllers', [])
         };
     }])
 
-    .controller('GroupSettingsCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
-
-        $rootScope.currentGroup = $localstorage.getObject('currentGroup');
-        $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
-        $scope.group = $rootScope.currentGroup;
-
-        $scope.leaveGroup = function() {
-            GroupFactory.leaveCurrentGroup($scope.group).then(function(msg) {
-                $window.location.assign('#/groups');
-            });
-        };
-    }])
-
     .controller('NewGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
 
         $scope.user = $localstorage.getObject('currentUser');
@@ -174,6 +163,106 @@ angular.module('meetle.controllers', [])
                 SubGroupFactory.create(group).then(function(subgroup) {
                     $window.location.assign('#/groups');
                 });
+            });
+        };
+    }])
+
+    .controller('GroupSettingsCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage) {
+
+        $rootScope.currentGroup = $localstorage.getObject('currentGroup');
+        $rootScope.currentGroup.user = $localstorage.getObject('currentUser')._id;
+        $scope.group = $rootScope.currentGroup;
+
+        $scope.leaveGroup = function() {
+            GroupFactory.leaveCurrentGroup($scope.group).then(function(msg) {
+                $window.location.assign('#/groups');
+            });
+        };
+    }])
+
+    .controller('AddGroupMembersCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+
+        $scope.members = {
+            users: [],
+            search: ''
+        };
+
+        $rootScope.currentUser = $localstorage.getObject('currentUser');
+
+        // load all users
+        UserFactory.loadUsers().then(function(users) {
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    (function(index) {
+                        // check if user is current user
+                        if (users[index]._id == $rootScope.currentUser._id) {
+                            // do not show current user in the list
+                        } else {
+                            users[index].group = $localstorage.getObject('currentGroup')._id;
+                            // check if current user has been added
+                            UserFactory.checkUserGroup(users[index]).then(function(result) {
+                                if (result) {
+                                    users[index].status = 'remove';
+                                    $scope.members.users.push(users[index]);
+                                } else {
+                                    users[index].status = 'add';
+                                    $scope.members.users.push(users[index]);
+                                }
+                            });
+                        }
+                    })(i);
+                }
+            }
+        });
+
+        $scope.add = function(user, index) {
+            UserFactory.addUserToGroup(user).then(function(result) {
+                $scope.members.users[index].status = 'remove';
+            });
+        };
+    }])
+
+    .controller('RemoveGroupMembersCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+
+        $scope.members = {
+            users: [],
+            search: ''
+        };
+
+        $rootScope.currentUser = $localstorage.getObject('currentUser');
+
+        console.log($localstorage.getObject('currentGroup'));
+
+        // load all users in group
+        UserFactory.loadGroupUsers($localstorage.getObject('currentGroup')).then(function(users) {
+            var users = users[0].members;
+            console.log(users);
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    (function(index) {
+                        // check if user is current user
+                        if (users[index] == $rootScope.currentUser._id) {
+                            // do not show current user in the list
+                        } else {
+                            var user = {
+                                id: users[index]
+                            };
+                            console.log(users[index]);
+                            // load user information
+                            UserFactory.loadUser(user).then(function(user) {
+                                console.log(user);
+                                $scope.members.users.push(user[0]);
+                            });
+                        }
+                    })(i);
+                }
+            }
+        });
+
+        $scope.remove = function(user, index) {
+            user.group = $localstorage.getObject('currentGroup')._id;
+            UserFactory.removeUserFromGroup(user).then(function(result) {
+                $scope.members.users.splice(index, 1);
             });
         };
     }])
@@ -218,19 +307,31 @@ angular.module('meetle.controllers', [])
             $window.location.assign('#/tab/chat');
         };
 
-        $scope.remove = function(subgroup, index) {
-            SubGroupFactory.deleteSubGroup(subgroup).then(function(subgroup) {
-                $scope.subgroups.splice(index, 1);
-                $ionicListDelegate.closeOptionButtons();
-            });
-        };
-
         $scope.leaveSubGroup = function(subgroup, index) {
             subgroup.user = $localstorage.getObject('currentUser')._id;
+            console.log(subgroup);
             SubGroupFactory.leaveCurrentSubGroup(subgroup).then(function(msg) {
                 console.log('Left Subgroup');
                 $scope.subgroups.splice(index, 1);
                 $ionicListDelegate.closeOptionButtons();
+            });
+        };
+    }])
+
+    .controller('NewSubGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+
+        $scope.user = $localstorage.getObject('currentUser');
+        if (!$scope.user.username) $window.location.assign('#/login');
+
+        $scope.subgroup = {
+            subgroup_title: '',
+            _id: $localstorage.getObject('currentGroup')._id,
+            user_id: $localstorage.getObject('currentUser')._id
+        };
+
+        $scope.createSubGroup = function() {
+            SubGroupFactory.create($scope.subgroup).then(function(subgroup) {
+                $window.location.assign('#/subGroups');
             });
         };
     }])
@@ -248,20 +349,96 @@ angular.module('meetle.controllers', [])
         }
     }])
 
-    .controller('NewSubGroupCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+    .controller('AddSubGroupMembersCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
 
-        $scope.user = $localstorage.getObject('currentUser');
-        if (!$scope.user.username) $window.location.assign('#/login');
-
-        $scope.subgroup = {
-            subgroup_title: '',
-            _id: $localstorage.getObject('currentGroup')._id,
-            user_id: $localstorage.getObject('currentUser')._id
+        $scope.members = {
+            users: [],
+            search: ''
         };
 
-        $scope.createSubGroup = function() {
-            SubGroupFactory.create($scope.subgroup).then(function(subgroup) {
-                $window.location.assign('#/subGroups');
+        $rootScope.currentUser = $localstorage.getObject('currentUser');
+
+        // load all users
+        UserFactory.loadGroupUsers($localstorage.getObject('currentGroup')).then(function(users) {
+            var users = users[0].members;
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    (function(index) {
+                        // check if user is current user
+                        if (users[index] == $rootScope.currentUser._id) {
+                            // do not show current user in the list
+                        } else {
+                            var user = {
+                                id: users[index]
+                            };
+                            console.log(users[index]);
+                            // load user information
+                            UserFactory.loadUser(user).then(function(user) {
+                                user[0].subgroup = $localstorage.getObject('currentSubGroup')._id;
+                                UserFactory.checkUserSubgroup(user[0]).then(function(result) {
+                                    if (result) {
+                                        user[0].status = 'remove';
+                                        $scope.members.users.push(user[0]);
+                                    } else {
+                                        user[0].status = 'add';
+                                        $scope.members.users.push(user[0]);
+                                    }
+                                });
+                            });
+                        }
+                    })(i);
+                }
+            }
+        });
+
+        $scope.add = function(user, index) {
+            UserFactory.addUserToSubgroup(user).then(function(result) {
+                $scope.members.users[index].status = 'remove';
+            });
+        };
+    }])
+
+    .controller('RemoveSubGroupMembersCtrl', ['$rootScope', '$scope', 'GroupFactory', '$window', '$ionicListDelegate', '$localstorage', 'UserFactory', 'SubGroupFactory', function($rootScope, $scope, GroupFactory, $window, $ionicListDelegate, $localstorage, UserFactory, SubGroupFactory) {
+
+        $scope.members = {
+            users: [],
+            search: ''
+        };
+
+        $rootScope.currentUser = $localstorage.getObject('currentUser');
+
+        console.log($localstorage.getObject('currentGroup'));
+
+        // load all users in group
+        UserFactory.loadSubgroupUsers($localstorage.getObject('currentSubGroup')).then(function(users) {
+            var users = users[0].members;
+            console.log(users);
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    (function(index) {
+                        // check if user is current user
+                        if (users[index] == $rootScope.currentUser._id) {
+                            // do not show current user in the list
+                        } else {
+                            var user = {
+                                id: users[index]
+                            };
+                            console.log(users[index]);
+                            // load user information
+                            UserFactory.loadUser(user).then(function(user) {
+                                console.log(user);
+                                $scope.members.users.push(user[0]);
+                            });
+                        }
+                    })(i);
+                }
+            }
+        });
+
+        $scope.remove = function(user, index) {
+            user.subgroup = $localstorage.getObject('currentSubGroup')._id;
+            UserFactory.removeUserFromSubgroup(user).then(function(result) {
+                $scope.members.users.splice(index, 1);
             });
         };
     }])
@@ -307,8 +484,6 @@ angular.module('meetle.controllers', [])
         $scope.meetups = [];
 
         var subgroup = $localstorage.getObject('currentSubGroup');
-        subgroup.user_id = $localstorage.getObject('currentUser')._id;
-
         MeetupFactory.all(subgroup).then(function(meetups) {
             if (meetups) {
                 $scope.meetups = meetups;
@@ -337,7 +512,6 @@ angular.module('meetle.controllers', [])
             date: '',
             time: '',
             location: '',
-            user_id: $localstorage.getObject('currentUser')._id,
             subgroup_id: $localstorage.getObject('currentSubGroup')._id
         };
 

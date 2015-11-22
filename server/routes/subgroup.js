@@ -74,6 +74,58 @@ module.exports = {
         res.status(200).send('Removed user from subgroup');
       }
     });
+  },
+
+  checkUserSubgroup: function (req, res) {
+    var user = req.body._id;
+    var subgroup = req.body.subgroup;
+
+    SubGroup.find({_id: subgroup, members: user}).exec(function(err, subgroup) {
+      if (subgroup.length) {
+        res.send(true);
+      } else {
+        res.send(false);
+      }
+    });
+  },
+
+  addUserToSubgroup: function (req, res) {
+    var user = req.body._id;
+    var subgroup = req.body.subgroup;
+
+    SubGroup.update({_id: subgroup}, {$push: {members: user}}).exec(function(err, subgroup) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(subgroup);
+      }
+    })
+  },
+
+  loadSubgroupUsers: function(req, res) {
+    var subgroup = req.body._id;
+
+    SubGroup.find({_id: subgroup}, {members: 1}).exec(function(err, subgroup) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        console.log(subgroup);
+        res.status(200).send(subgroup);
+      }
+    })
+  },
+
+  removeUserFromSubgroup: function(req, res) {
+    var user = req.body._id;
+    var subgroup = req.body.subgroup;
+
+    SubGroup.findOneAndUpdate({ _id : subgroup }, { $pull: { members : user } }, function(err, group) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Removed user from subgroup');
+      }
+    });
   }
 
 };

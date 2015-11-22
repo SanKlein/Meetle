@@ -73,6 +73,59 @@ module.exports = {
         res.status(200).send('Removed user from group');
       }
     });
+  },
+
+  checkUserGroup: function (req, res) {
+    var user = req.body._id;
+    var group = req.body.group;
+
+    Group.find({_id: group, members: user}).exec(function(err, group) {
+      if (group.length) {
+        res.send(true);
+      } else {
+        res.send(false);
+      }
+    });
+  },
+
+  addUserToGroup: function (req, res) {
+    var user = req.body._id;
+    var group = req.body.group;
+
+    Group.update({_id: group}, {$push: {members: user}}).exec(function(err, group) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(group);
+      }
+    })
+  },
+
+  loadGroupUsers: function(req, res) {
+    var group = req.body._id;
+    console.log(group);
+
+    Group.find({_id: group}, {members: 1}).exec(function(err, group) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        console.log(group);
+        res.status(200).send(group);
+      }
+    })
+  },
+
+  removeUserFromGroup: function(req, res) {
+    var user = req.body._id;
+    var group = req.body.group;
+
+    Group.findOneAndUpdate({ _id : group }, { $pull: { members : user } }, function(err, group) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Removed user from group');
+      }
+    });
   }
 
 };

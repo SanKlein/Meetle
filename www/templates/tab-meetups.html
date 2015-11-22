@@ -4,6 +4,9 @@
     <h1 class="title">{{currentSubGroup.title}}</h1>
     <a class="button button-clear ion-gear-a" ui-sref="subGroupSettings"></a>
   </ion-header-bar>
+  <ion-header-bar class="bar bar-subheader">
+    <a class="button button-clear button-positive" ui-sref="newMeetup">Add New Meetup</a>
+  </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
       <ion-item class="item item-text-wrap" ng-repeat="meetup in meetups track by $index">
