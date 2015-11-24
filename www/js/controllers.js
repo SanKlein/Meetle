@@ -217,11 +217,45 @@ angular.module('meetle.controllers', [])
 
         $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
 
-        $scope.chatroom = {
-            chats: [],
-            text: ''
-        };
+        //$scope.chatroom = {
+        //    chats: currentSubGroup.chats,
+        //    text: ''
+        //};
 
+        // upon creation, the chat window will cycle through this and display all the messages
+        $scope.chats = currentSubGroup.chats;
+
+        $scope.messageText = "";
+
+        // Tries to connect to the server URl. Not sure if this address/port is correct. I got '3000' from the server.js file
+        // If successful, the socket variable below will provide us with a TCP connection to our server
+        var socket = io.connect('http://127.0.0.1:3000');
+
+        // when addChat is called, emit an event called 'send message'
+        // with the enclosed JSON object to the server,
+        // where it will be stored in the database
+        $scope.addChat = function() {
+            socket.emit('store message', {
+                username: $scope.user.username,
+                message: messageText,
+                room: $rootscope.currentSubGroup
+            });
+            messageText = "";
+        }
+
+        // when the server emits an event called 'new message', add it to our
+        // chat array. Then force the part of our HTML that renders that
+        // to run again, this time with the modified array
+        socket.on('distribute message', function(data) {
+            $rootScope.$apply(function () {
+                $scope.chats.append(data);
+            });
+        });
+
+        // todo
+        // $scope.likeChat = function() {
+        //
+        // }
     }])
 
     .controller('MeetupsCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', '$ionicListDelegate', function($rootScope, $scope, MeetupFactory, $window, $localstorage, $ionicListDelegate) {

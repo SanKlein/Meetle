@@ -239,7 +239,7 @@ angular.module('meetle.services', [])
                 });
 
                 return deferred.promise;
-            }
+            },
 
         }
     }])

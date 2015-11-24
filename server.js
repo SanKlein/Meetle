@@ -8,7 +8,7 @@ var express           = require('express'),
     session           = require('express-session'),
     logger            = require('morgan'),
     bodyParser        = require('body-parser'),
-    socket            = require('socket.io');
+    io                = require('socket.io');
 
 var app = express();
 

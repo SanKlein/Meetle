@@ -21,6 +21,10 @@ var Chat = new mongoose.Schema({
   sent: {
     type: Date,
     default: Date.now
+  },
+  liked: {
+    type: Boolean,
+    default: false
   }
 });
 

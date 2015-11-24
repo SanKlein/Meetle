@@ -1,5 +1,8 @@
 var mongoose = require("mongoose"),
     Chat = require('../models/chat');
+    // not needed because of [app.listen(port, function() {] in server.js?
+    // io = require(socket.io).listen(server);
+
 
 module.exports = {
 
