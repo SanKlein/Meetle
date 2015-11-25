@@ -487,7 +487,8 @@ angular.module('meetle.controllers', [])
             socket.emit('store message', {
                 username: $scope.user.username,
                 message: messageText,
-                room: $rootscope.currentSubGroup
+                room: $rootscope.currentSubGroup,
+                currentUser: user
             });
             messageText = "";
         }

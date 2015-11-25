@@ -19,10 +19,17 @@ io.on('connection', function(socket){
         if (!socket.in(room)) {
             socket.join(room);
         }
+
+        // instantiate our model per the message's traits
         var trimmedMessage = data.message.trim();
+        var newChat = myChat();
+        newChat.text = trimmedMessage;
+        newChat.subgroup = data.subgroup;
+        newChat.user_username = data.currentUser.user_username;
+        newChat.user_id = data.currentUser.user_id;
 
         // saves newChat into our mongodb
-        data.subgroup.chats.save(function(err) {
+        (data.subgroup.chats).save(function(err) {
             if (err) throw err;
             io.in(room).emit('distribute message', newChat);
         });
