@@ -50,3 +50,13 @@ Meetle is a platform-independent application for people to easily collaborate in
 - All CSS code is located in www/css/
 - All HTML code is located in www/templates/
 - All test code is located in...
+
+
+## Early version run-through (Windows)
+1. Install MongoDB (https://www.mongodb.org/downloads?_ga=1.162870581.845702189.1447711911#production)
+2. open a terminal: **mkdir c:/data/db**
+3. **c:/mongodb/bin/mongod.exe**
+4. in a second terminal: **c:/mongodb/bin/mongo.exe**
+5. in a third terminal: navigate to the *Meetle* root directory
+6. **npm install**
+7. **node server.js**

@@ -66,6 +66,34 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         controller: 'NewGroupCtrl'
     })
 
+    .state('groupSettings', {
+        cache: false,
+        url: '/groupSettings',
+        templateUrl: 'templates/groupSettings.html',
+        controller: 'GroupSettingsCtrl'
+    })
+
+    .state('addGroupMembers', {
+        cache: false,
+        url: '/group/addMembers',
+        templateUrl: 'templates/AddGroupMembers.html',
+        controller: 'AddGroupMembersCtrl'
+    })
+
+    .state('removeGroupMembers', {
+        cache: false,
+        url: '/group/removeMembers',
+        templateUrl: 'templates/RemoveGroupMembers.html',
+        controller: 'RemoveGroupMembersCtrl'
+    })
+
+    .state('editGroupName', {
+        cache: false,
+        url: '/editGroupName',
+        templateUrl: 'templates/editGroupName.html',
+        controller: 'GroupNameCtrl'
+    })
+
     .state('subGroups', {
       cache: false,
       url: '/subGroups',
@@ -78,6 +106,34 @@ angular.module('meetle', ['ionic', 'meetle.controllers', 'meetle.services'])
         url: '/subgroup/new',
         templateUrl: 'templates/newSubGroup.html',
         controller: 'NewSubGroupCtrl'
+    })
+
+    .state('subGroupSettings', {
+        cache: false,
+        url: '/subGroupSettings',
+        templateUrl: 'templates/subGroupSettings.html',
+        controller: 'SubGroupSettingsCtrl'
+    })
+
+    .state('addSubGroupMembers', {
+        cache: false,
+        url: '/subGroup/addMembers',
+        templateUrl: 'templates/AddSubGroupMembers.html',
+        controller: 'AddSubGroupMembersCtrl'
+    })
+
+    .state('removeSubGroupMembers', {
+        cache: false,
+        url: '/subGroup/removeMembers',
+        templateUrl: 'templates/RemoveSubGroupMembers.html',
+        controller: 'RemoveSubGroupMembersCtrl'
+    })
+
+    .state('editSubGroupName', {
+        cache: false,
+        url: '/editSubGroupName',
+        templateUrl: 'templates/editSubGroupName.html',
+        controller: 'SubGroupNameCtrl'
     })
 
     // setup an abstract state for the tabs directive

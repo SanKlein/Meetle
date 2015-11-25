@@ -4,10 +4,6 @@ var mongoose = require('mongoose'),
     Group = require('./group');
 
 var Meetup = new mongoose.Schema({
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
   subgroup: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SubGroup'

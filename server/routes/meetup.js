@@ -6,9 +6,8 @@ module.exports = {
   all: function(req, res) {
 
     var subgroup = req.body._id;
-    var user = req.body.user_id;
 
-    Meetup.find({subgroup: subgroup, members: user}).exec(function(err, meetups) {
+    Meetup.find({subgroup: subgroup}).exec(function(err, meetups) {
       if (!err) {
         res.send(meetups);
       } else {
@@ -22,7 +21,6 @@ module.exports = {
     var meetup = new Meetup();
 
     meetup.subgroup = req.body.subgroup_id;
-    meetup.members = [req.body.user_id];
     meetup.date = req.body.date;
     meetup.time = req.body.time;
     meetup.location = req.body.location;
@@ -32,19 +30,6 @@ module.exports = {
         res.send(meetup);
       } else {
         res.send(err, 403);
-      }
-    });
-  },
-
-  deleteMeetup: function(req, res) {
-
-    var meetup = req.body._id;
-
-    Meetup.remove({_id : meetup}).exec(function(err, meetup) {
-      if (err) {
-        res.status(500).send('Internal server error.');
-      } else {
-        res.status(200).send('Meetup deleted');
       }
     });
   },
@@ -61,6 +46,18 @@ module.exports = {
       } else {
         console.log('Updated meeting: ' + location + " " + date + " " + time);
         res.status(200).send('Meeting updated');
+      }
+    });
+  },
+
+  deleteMeetup: function (req, res) {
+    var meetup_id = req.body._id;
+
+    Meetup.remove({_id : meetup_id}).exec(function(err, meetup) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Meetup deleted');
       }
     });
   }

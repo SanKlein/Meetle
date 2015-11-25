@@ -21,12 +21,8 @@ io.on('connection', function(socket){
         }
         var trimmedMessage = data.message.trim();
 
-        // create a JSON object which is an instance of the object model representing our Mongoose chat schema
-        var newChat = new myChat({
-            text: trimmedMessage, user_username: data.username, subgroup: data.subgroup});
-
         // saves newChat into our mongodb
-        newChat.save(function(err) {
+        data.subgroup.chats.save(function(err) {
             if (err) throw err;
             io.in(room).emit('distribute message', newChat);
         });
@@ -46,21 +42,43 @@ module.exports = function(app) {
 
     app.put('/v1/user', user.update);
 
-    app.post('/v1/users', user.all);
+    app.post('/v1/user/load', user.load);
 
     app.post('/v1/user/delete', user.deleteUser);
 
+    app.get('/v1/users', user.loadUsers);
+
+    app.post('/v1/user/group', group.checkUserGroup);
+
+    app.post('/v1/user/group/add', group.addUserToGroup);
+
+    app.post('/v1/user/group/remove', group.removeUserFromGroup);
+
+    app.post('/v1/users/group', group.loadGroupUsers);
+
+    app.post('/v1/user/subgroup', subgroup.checkUserSubgroup);
+
+    app.post('/v1/user/subgroup/add', subgroup.addUserToSubgroup);
+
+    app.post('/v1/user/subgroup/remove', subgroup.removeUserFromSubgroup);
+
+    app.post('/v1/users/subgroup', subgroup.loadSubgroupUsers);
+
     app.post('/v1/group', group.create);
 
-    app.post('/v1/group/delete', group.deleteGroup);
+    app.put('/v1/group/name', group.changeGroupName);
+
+    app.post('/v1/group/leave', group.leaveGroup);
 
     app.get('/v1/groups/:id', group.getGroups);
 
     app.post('/v1/subgroup', subgroup.create);
 
-    app.post('/v1/subgroup/group', subgroup.getSubGroups);
+    app.put('/v1/subgroup/name', subgroup.changeSubGroupName);
 
-    app.post('/v1/subgroup/delete', subgroup.deleteSubGroup);
+    app.post('/v1/subgroups/group', subgroup.getSubGroups);
+
+    app.post('/v1/subgroup/leave', subgroup.leaveSubGroup);
 
     app.post('/chat/add', chat.add);
 
@@ -70,8 +88,8 @@ module.exports = function(app) {
 
     app.post('/v1/meetup', meetup.create);
 
-    app.post('/v1/meetup/delete', meetup.deleteMeetup);
-
     app.put('/v1/meetup', meetup.update);
+
+    app.post('/v1/meetup/delete', meetup.deleteMeetup)
 
 };
