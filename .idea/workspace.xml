@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce50e450-6a19-48b8-a4ff-6d8321e157af" name="Default" comment="">
+    <list default="true" id="ce50e450-6a19-48b8-a4ff-6d8321e157af" name="Default" comment="Merge branch 'master' of https://github.com/cs4278-2015/Meetle into chat&#10;&#10;Conflicts:&#10;&#9;server/routes/group.js&#10;&#9;server/routes/index.js&#10;&#9;www/js/services.js&#10;&#9;www/templates/tab-chat.html&#10;">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/addGroupMembers.html" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/addSubGroupMembers.html" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/editGroupName.html" />
@@ -109,20 +109,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="group.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="group.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes/group.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.87466305">
+            <state vertical-scroll-proportion="-24.037037">
               <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="services.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-2.0611184">
               <caret line="384" column="65" selection-start-line="384" selection-start-column="65" selection-end-line="384" selection-end-column="65" />
               <folding />
             </state>
@@ -802,6 +802,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/routes/group.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.037037">
+          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/tab-chat.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-21.576923">
@@ -812,16 +820,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-2.0611184">
           <caret line="384" column="65" selection-start-line="384" selection-start-column="65" selection-end-line="384" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/routes/group.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87466305">
-          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
           <folding />
         </state>
       </provider>
