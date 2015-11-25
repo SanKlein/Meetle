@@ -478,7 +478,7 @@ angular.module('meetle.controllers', [])
 
         // Tries to connect to the server URl. Not sure if this address/port is correct. I got '3000' from the server.js file
         // If successful, the socket variable below will provide us with a TCP connection to our server
-        var socket = io.connect('http://127.0.0.1:3000');
+        var socket = io.connect('http://localhost:3000');
 
         // when addChat is called, emit an event called 'send message'
         // with the enclosed JSON object to the server,
