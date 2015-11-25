@@ -3,6 +3,7 @@ var group = require('./group'),
     subgroup = require('./subgroup'),
     chat = require('./chat'),
     meetup = require('./meetup'),
+    mongoose = require('mongoose'),
     io = require('socket.io').listen(3000);
 
 // create an object model to represent our Mongoose document schema for chats
