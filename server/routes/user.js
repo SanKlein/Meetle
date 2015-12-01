@@ -51,7 +51,7 @@ module.exports = {
           if (err) {
             res.status(403).send('Failed to save user');
           } else {
-            res.json(newUser);
+            res.status(200).json(newUser);
           }
         });
       }
