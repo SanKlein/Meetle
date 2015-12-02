@@ -49,7 +49,7 @@ Meetle is a platform-independent application for people to easily collaborate in
 - All JavaScript code is located in www/js/
 - All CSS code is located in www/css/
 - All HTML code is located in www/templates/
-- All test code is located in...
+- All test code is located in test/test.js
 
 
 ## Early version run-through (Windows)
