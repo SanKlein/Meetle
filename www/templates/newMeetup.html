@@ -1,25 +1,27 @@
 <ion-view view-title="NewMeetup">
-    <ion-header-bar class="bar bar-positive">
+    <ion-header-bar class="bar bar-balanced">
         <div class="button button-clear">
             <a class="button button-clear ion-chevron-left" ng-click="goBack()"></a>
         </div>
         <h1 class="title">New Meetup</h1>
     </ion-header-bar>
     <ion-content>
-        <ion-list>
-            <label class="item item-input">
-                <span class="input-label">Date</span>
-                <input class="text-field" type="text" placeholder="MM/DD/YYYY" ng-model="meetup.date">
+        <div class="list group-form">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-balanced">Date</span>
+                <input class="text-field make-balanced" type="text" placeholder="MM/DD/YYYY" ng-model="meetup.date">
             </label>
-            <label class="item item-input">
-                <span class="input-label">Time</span>
-                <input class="text-field" type="text" placeholder= "HH:MM" ng-model="meetup.time">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-balanced">Time</span>
+                <input class="text-field make-balanced" type="text" placeholder= "HH:MM" ng-model="meetup.time">
             </label>
-            <label class="item item-input">
-                <span class="input-label">Location</span>
-                <input class="text-field" type="text" ng-model="meetup.location">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-balanced">Location</span>
+                <input class="text-field make-balanced" type="text" ng-model="meetup.location">
             </label>
-        </ion-list>
-        <button class="button button-block button-positive" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="createMeetup()">Create Meetup</button>
+        </div>
     </ion-content>
+    <div class="bar bar-balanced bar-footer footer-button">
+        <a class="button button-full button-clear" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="createMeetup()">Create Meetup</a>
+    </div>
 </ion-view>

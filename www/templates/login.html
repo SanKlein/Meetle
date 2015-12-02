@@ -1,24 +1,28 @@
 <ion-view title="Login">
-  <ion-header-bar class="bar bar-positive">
-    <h1 class="title">Login</h1>
+  <ion-header-bar class="bar bar-balanced">
+    <h1 class="title">Meetle</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="list">
+    <div class="list login-form">
       <form ng-submit="login()">
-        <label class="item item-input">
-          <input type="text" placeholder="Username" ng-model="user.username">
+        <label class="item item-input item-floating-label">
+          <span class="input-label make-balanced">Username</span>
+          <input type="text" class="make-balanced" placeholder="Username" ng-model="user.username">
         </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="user.password">
+        <label class="item item-input item-floating-label">
+          <span class="input-label make-balanced">Password</span>
+          <input type="password" class="make-balanced" placeholder="Password" ng-model="user.password">
         </label>
-        <div ng-if="user.error" class="error">{{user.error}}</div>
-        <button class="button button-block button-positive" ng-disabled="!user.username || !user.password" type="submit">
-          Login
-        </button>
-        <button class="button button-block button-clear button-dark" ui-sref="signup">
+        <div class="center-error">
+          <div ng-if="user.error" class="error">{{user.error}}</div>
+        </div>
+        <button class="button button-block button-clear button-stable" ui-sref="signup">
           I do not have an account yet
         </button>
       </form>
     </div>
   </ion-content>
+  <div class="bar bar-balanced bar-footer footer-button">
+    <a class="button button-full button-clear" ng-disabled="!user.username || !user.password" ng-click="login()">Login</a>
+  </div>
 </ion-view>

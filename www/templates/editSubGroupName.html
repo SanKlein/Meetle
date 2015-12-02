@@ -1,17 +1,19 @@
 <ion-view title="EditSubGroupName">
-    <ion-header-bar class="bar bar-positive">
+    <ion-header-bar class="bar bar-balanced">
         <a class="button ion-chevron-left button-clear" ui-sref="subGroupSettings"></a>
         <h1 class="title">Edit Subgroup Name</h1>
     </ion-header-bar>
     <ion-content>
-        <div class="list">
+        <div class="list group-form">
             <form ng-submit="editSubGroupName()">
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">Subgroup Name</span>
-                    <input type="text" ng-model="subgroup.title">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label make-balanced">Subgroup name</span>
+                    <input type="text" class="make-balanced" ng-model="subgroup.title">
                 </label>
-                <button class="button button-block button-positive" ng-disabled="!subgroup.title" type="submit">Update</button>
             </form>
         </div>
     </ion-content>
+    <div class="bar bar-balanced bar-footer footer-button">
+        <button class="button button-full button-clear" ng-disabled="!subgroup.title" ng-click="editSubGroupName()">Update</button>
+    </div>
 </ion-view>

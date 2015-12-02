@@ -29,13 +29,13 @@
       <ion-nav-view></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-      <ion-header-bar class="bar-positive">
+      <ion-header-bar class="bar-balanced">
         <h1 class="title">{{currentUser.username}}</h1>
       </ion-header-bar>
       <ion-content class="has-header">
         <ion-list>
-          <ion-item ui-sref="profile" menu-close>Edit Profile</ion-item>
-          <ion-item ng-click="logout()" menu-close>Logout</ion-item>
+          <ion-item ui-sref="profile" class="make-balanced" menu-close>Edit Profile</ion-item>
+          <ion-item ng-click="logout()" class="make-balanced" menu-close>Logout</ion-item>
         </ion-list>
       </ion-content>
     </ion-side-menu>
