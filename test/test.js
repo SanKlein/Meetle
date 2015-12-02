@@ -30,7 +30,7 @@ describe('POST /v1/user', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                assert.equal(res.status, 200);
+                assert.equal(res.status, 403);
                 done();
             });
     });
