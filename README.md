@@ -18,6 +18,8 @@ Meetle is a platform-independent application for people to easily collaborate in
 - Met once on 11-16-15 (3, Featheringhill)
 - Met once on 11-17-15 (11, Olin)
 - Met once on 11-19-15 (11, Olin)
+- Met once on 12-1-15 (8:30, Featheringhill)
+- Met once on 12-3-15 (11, Olin)
 
 ## User Stories:
 1. As a user I can add new groups I am in.
