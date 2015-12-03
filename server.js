@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/www'));
 app.use(logger('combined'));
 
+require('./server/routes')(app);
+
 app.use(session({
   secret: 'savingsessions',
   resave: false,

@@ -6,9 +6,6 @@ var Group = require('./group'),
     mongoose = require('mongoose'),
     io = require('socket.io').listen(3000);
 
-// create an object model to represent our Mongoose document schema for chats
- var myChat = new Chat();
-
 // this 'io' object represents the server URL which we will connect all the front end sockets to
 io.on('connection', function(socket){
 
@@ -23,7 +20,7 @@ io.on('connection', function(socket){
 
         // instantiate our model per the message's traits
         var trimmedMessage = data.message.trim();
-        var newChat = new myChat();
+        var newChat = new Chat();
         newChat.text = trimmedMessage;
         newChat.subgroup = data.subgroup;
         newChat.user_username = data.currentUser.user_username;
