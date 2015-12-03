@@ -1,29 +1,28 @@
 <ion-view view-title="GroupSettings">
-    <ion-header-bar class="bar bar-balanced">
+    <ion-header-bar class="bar bar-royal">
         <a class="button button-clear ion-chevron-left" ui-sref="subGroups"></a>
         <h1 class="title">{{currentGroup.title}} Settings</h1>
     </ion-header-bar>
     <ion-content>
         <ion-list>
-            <ion-item class="item-text-wrap">
-                <a class="button button-clear button-balanced" ui-sref="editGroupName">Edit Group Name</a>
-                <a class="button button-clear settings-button button-balanced ion-ios-arrow-right"></a>
+            <ion-item class="item-text-wrap" ui-sref="editGroupName">
+                <a class="button button-clear button-royal">Edit Group Name</a>
+                <a class="button button-clear arrow-button button-royal ion-ios-arrow-right"></a>
             </ion-item>
-            <ion-item class="item-text-wrap">
-                <a class="button button-clear button-balanced" ui-sref="newSubGroup">Add New Subgroup</a>
-                <a class="button button-clear settings-button button-balanced ion-ios-arrow-right"></a>
+            <ion-item class="item-text-wrap" ui-sref="newSubGroup">
+                <a class="button button-clear button-royal">Add New Subgroup</a>
+                <a class="button button-clear arrow-button button-royal ion-ios-arrow-right"></a>
             </ion-item>
-            <ion-item class="item-text-wrap">
-                <a class="button button-clear button-balanced" ui-sref="addGroupMembers">Add Members</a>
-                <a class="button button-clear settings-button button-balanced ion-ios-arrow-right"></a>
+            <ion-item class="item-text-wrap" ui-sref="addGroupMembers">
+                <a class="button button-clear button-royal">Add Members</a>
+                <a class="button button-clear arrow-button button-royal ion-ios-arrow-right"></a>
             </ion-item>
-            <ion-item class="item-text-wrap">
-                <a class="button button-clear button-balanced" ui-sref="removeGroupMembers">Remove Members</a>
-                <a class="button button-clear settings-button button-balanced ion-ios-arrow-right"></a>
+            <ion-item class="item-text-wrap" ui-sref="removeGroupMembers">
+                <a class="button button-clear button-royal">Remove Members</a>
+                <a class="button button-clear arrow-button button-royal ion-ios-arrow-right"></a>
             </ion-item>
-            <ion-item class="item-text-wrap">
-                <a class="button button-clear button-balanced" ng-click="leaveGroup()">Leave Group</a>
-                <a class="button button-clear settings-button button-balanced ion-ios-arrow-right"></a>
+            <ion-item class="item-text-wrap" ng-click="leaveGroup()">
+                <a class="button button-clear button-royal">Leave Group</a>
             </ion-item>
         </ion-list>
     </ion-content>

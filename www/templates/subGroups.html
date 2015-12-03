@@ -1,17 +1,17 @@
 <ion-view view-title="SubGroups">
-  <ion-header-bar class="bar bar-balanced">
+  <ion-header-bar class="bar bar-royal">
     <a class="button button-clear ion-chevron-left" ui-sref="groups"></a>
     <h1 class="title">{{currentGroup.title}}</h1>
     <a class="button button-clear ion-gear-a" ui-sref="groupSettings"></a>
   </ion-header-bar>
   <ion-header-bar class="bar bar-subheader">
-    <a class="button button-clear button-balanced" ui-sref="newSubGroup">Add subgroup</a>
+    <a class="button button-clear button-royal" ui-sref="newSubGroup">Add subgroup</a>
   </ion-header-bar>
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
       <ion-item class="item-text-wrap" ng-click="loadSubGroup(subgroup, $index)" ng-repeat="subgroup in subgroups track by $index">
-        <a class="button button-clear button-balanced">{{subgroup.title}}</a>
-        <a class="button button-clear arrow-button button-balanced ion-ios-arrow-right"></a>
+        <a class="button button-clear button-royal">{{subgroup.title}}</a>
+        <a class="button button-clear arrow-button button-royal ion-ios-arrow-right"></a>
         <ion-option-button class="button-assertive" ng-click="leaveSubGroup(subgroup, $index)">Leave</ion-option-button>
       </ion-item>
     </ion-list>

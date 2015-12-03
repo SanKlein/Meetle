@@ -22,7 +22,7 @@ div.footer-button a.button.button-full {
 .arrow-button {
   position: relative;
   float: right;
-  right: -50px;
+  right: -45px;
   text-decoration: none;
 }
 
@@ -49,7 +49,7 @@ div.footer-button a.button.button-full {
 .settings-button {
   position: relative;
   float: right;
-  right: -17px;
+  right: 0px;
   text-decoration: none;
 }
 
@@ -77,12 +77,12 @@ div.footer-button a.button.button-full {
   background-color: white;
 }
 
-.make-balanced {
-  color: #66cc33;
+.make-royal {
+  color: #8a6de9;
 }
 
-input.balance {
-  color: #66cc33;
+input.royaled {
+  color: #8a6de9;
 }
 
 .make-dark {
@@ -90,14 +90,16 @@ input.balance {
 }
 
 .item {
-  border: 0;
+  border: 1px;
+  border-color: #f8f8f8;
+  border-style: solid;
 }
 
-input.make-balanced {
-  color: #66cc33;
+input.make-royal {
+  color: #8a6de9;
   border-style: solid;
   border-width: 0px 0px 2px 0px;
-  border-color: #66cc33;
+  border-color: #8a6de9;
   border-radius: 0;
   margin-bottom: 20px;
 }
@@ -159,5 +161,13 @@ ion-tab {
 }
 
 ion-view {
+  border: 0;
+}
+
+.item-floating-label {
+  border: 0;
+}
+
+.item-stacked-label {
   border: 0;
 }

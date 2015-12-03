@@ -1,5 +1,5 @@
 <ion-view view-title="Chat">
-  <ion-header-bar class="bar-balanced">
+  <ion-header-bar class="bar-royal">
     <a class="button button-clear ion-chevron-left" ui-sref="subGroups"></a>
     <h1 class="title">{{currentSubGroup.title}}</h1>
     <a class="button button-clear ion-gear-a" ui-sref="subGroupSettings"></a>
@@ -8,7 +8,7 @@
     <ion-list>
       <div class="item item-button-right item-avatar item-text-wrap" ng-repeat="chat in chatroom.chats track by $index">
         <img class="img-circle" src="../img/meetle.png"> <!--ng-src="{{post.profilePicture}}"-->
-        <h2 class="make-balanced">{{chat.user_username}}</h2>
+        <h2 class="make-royal">{{chat.user_username}}</h2>
         <p>{{chat.text}}</p>
         <div class="button button-clear" ng-click="likeChat(chat, $index)">
           <button class="button button-clear button-assertive icon" ng-class="chat.liked ? 'ion-ios-heart' : 'ion-ios-heart-outline'"></button>
@@ -19,9 +19,9 @@
   <ion-footer-bar class="bar bar-stable item-input-inset">
     <label class="item-input-wrapper">
       <form ng-submit="addChat()" class="text-input">
-        <input class="text-field balance" type="text" placeholder="Message" ng-model="chatroom.text" autofocus>
+        <input class="text-field royaled" type="text" placeholder="Message" ng-model="chatroom.text" autofocus>
       </form>
     </label>
-    <button type="submit" class="button button-balanced button-clear" ng-click="addChat()" ng-disabled="!chatroom.text">Send</button>
+    <button type="submit" class="button button-royal button-clear" ng-click="addChat()" ng-disabled="!chatroom.text">Send</button>
   </ion-footer-bar>
 </ion-view>

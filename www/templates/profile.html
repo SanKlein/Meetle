@@ -1,5 +1,5 @@
 <ion-view title="Profile">
-    <ion-header-bar class="bar bar-balanced">
+    <ion-header-bar class="bar bar-royal">
         <a class="button ion-chevron-left button-clear" ng-click="goBack()"></a>
         <h1 class="title">Profile</h1>
     </ion-header-bar>
@@ -7,16 +7,16 @@
         <div class="list group-form">
             <form ng-submit="editProfile()">
                 <label class="item item-input item-floating-label">
-                    <span class="input-label make-balanced">First name</span>
-                    <input type="text" class="make-balanced" placeholder="First name" ng-model="user.first_name">
+                    <span class="input-label make-royal">First name</span>
+                    <input type="text" class="make-royal" placeholder="First name" ng-model="user.first_name">
                 </label>
                 <label class="item item-input item-floating-label">
-                    <span class="input-label make-balanced">Last name</span>
-                    <input type="text" class="make-balanced" placeholder="Last name" ng-model="user.last_name">
+                    <span class="input-label make-royal">Last name</span>
+                    <input type="text" class="make-royal" placeholder="Last name" ng-model="user.last_name">
                 </label>
                 <label class="item item-input item-floating-label">
-                    <span class="input-label make-balanced">Username</span>
-                    <input type="text" class="make-balanced" placeholder="Username" ng-model="user.username">
+                    <span class="input-label make-royal">Username</span>
+                    <input type="text" class="make-royal" placeholder="Username" ng-model="user.username">
                 </label>
                 <div class="center-error">
                     <button class="button button-full button-clear button-stable" ng-click="deleteAccount()" type="button">Delete Account</button>
@@ -24,7 +24,7 @@
             </form>
         </div>
     </ion-content>
-    <div class="bar bar-balanced bar-footer footer-button">
+    <div class="bar bar-royal bar-footer footer-button">
         <a class="button button-full button-clear" ng-disabled="!user.username || !user.first_name || !user.last_name" ng-click="editProfile()">Update</a>
     </div>
 </ion-view>

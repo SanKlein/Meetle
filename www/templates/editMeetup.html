@@ -1,5 +1,5 @@
 <ion-view view-title="EditMeetup">
-    <ion-header-bar class="bar bar-balanced">
+    <ion-header-bar class="bar bar-royal">
         <div class="button button-clear">
             <a class="button button-clear ion-chevron-left" ui-sref="tab.meetups"></a>
         </div>
@@ -8,21 +8,21 @@
     <ion-content>
         <div class="list group-form">
             <label class="item item-input item-stacked-label">
-                <span class="input-label make-balanced">Date</span>
-                <input class="text-field make-balanced" type="text" ng-model="meetup.date">
+                <span class="input-label make-royal">Date</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.date">
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label make-balanced">Time</span>
-                <input class="text-field make-balanced" type="text" ng-model="meetup.time">
+                <span class="input-label make-royal">Time</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.time">
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label make-balanced">Location</span>
-                <input class="text-field make-balanced" type="text" ng-model="meetup.location">
+                <span class="input-label make-royal">Location</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.location">
             </label>
         </div>
         <button class="button button-full button-stable button-clear" ng-click="remove()" type="button">Delete Meetup</button>
     </ion-content>
-    <div class="bar bar-balanced bar-footer footer-button">
+    <div class="bar bar-royal bar-footer footer-button">
         <a class="button button-full button-clear" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="editMeetup()">Update</a>
     </div>
 </ion-view>
