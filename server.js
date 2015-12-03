@@ -33,8 +33,6 @@ app.use(session({
   cookie: { maxAge: 2592000000 }
 }));
 
-require('./server/routes')(app);
-
 app.listen(port, function() {
   console.log('Listening on port ' + port);
 });

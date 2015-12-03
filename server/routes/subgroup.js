@@ -1,6 +1,5 @@
 var mongoose = require("mongoose"),
-    SubGroup = require('../models/subgroup'),
-    Chat = require('../models/chat');
+    SubGroup = require('../models/subgroup');
 
 module.exports = {
 
@@ -10,7 +9,6 @@ module.exports = {
     var title = req.body.subgroup_title;
     var user = req.body.user_id;
     var subgroup = new SubGroup();
-    var chats = new Chat();
 
     subgroup.group = group;
     subgroup.title = title;
