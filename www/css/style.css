@@ -22,7 +22,34 @@ div.footer-button a.button.button-full {
 .arrow-button {
   position: relative;
   float: right;
-  right: -50px;
+  right: -45px;
+  text-decoration: none;
+}
+
+.add-button {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+}
+
+.remove-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+}
+
+.settings-button {
+  position: relative;
+  float: right;
+  right: 0px;
   text-decoration: none;
 }
 
@@ -49,3 +76,101 @@ div.footer-button a.button.button-full {
 .wrapper-color {
   background-color: white;
 }
+<<<<<<< HEAD
+=======
+
+.make-royal {
+  color: #8a6de9;
+}
+
+input.royaled {
+  color: #8a6de9;
+}
+
+.make-dark {
+  color: #444;
+}
+
+.item {
+  border: 1px;
+  border-color: #f8f8f8;
+  border-style: solid;
+}
+
+input.make-royal {
+  color: #8a6de9;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: #8a6de9;
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  margin: 0 auto;
+  width: 95%;
+  top: 70px;
+  padding-right: 13px;
+}
+
+.signup-form {
+  margin: 0 auto;
+  width: 95%;
+  top: 30px;
+  padding-right: 13px;
+}
+
+.group-form {
+  margin: 0 auto;
+  width: 95%;
+  top: 20px;
+  padding-right: 13px;
+}
+
+.bar {
+  border: 0;
+}
+
+.bar {
+  box-shadow:0px 1px 5px #afafaf;
+}
+
+.bar-footer {
+  box-shadow:1px 0px 5px #afafaf;
+}
+
+.error {
+  color: red;
+  margin: 0 auto;
+}
+
+.center-error {
+  width: 100%;
+  text-align: center;
+}
+
+div.footer-button button.button.button-full {
+  width:100%;
+  margin-top: 0
+}
+
+ion-tabs {
+  border: 0;
+}
+
+ion-tab {
+  border: 0;
+}
+
+ion-view {
+  border: 0;
+}
+
+.item-floating-label {
+  border: 0;
+}
+
+.item-stacked-label {
+  border: 0;
+}
+>>>>>>> master

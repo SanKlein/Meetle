@@ -11,7 +11,6 @@ var express           = require('express'),
 
 var app = express();
 
-// mongoose.connect('mongodb://192.168.99.100:32770/meetledb');
 mongoose.connect('mongodb://localhost/meetledb');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -34,6 +33,15 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 2592000000 }
 }));
+
+
+require('./server/routes')(app);
+
+// Export variables for testing
+module.exports = {
+    app: app,
+    database: db
+};
 
 app.listen(port, function() {
   console.log('Listening on port ' + port);

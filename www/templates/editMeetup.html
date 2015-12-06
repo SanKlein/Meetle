@@ -1,26 +1,28 @@
 <ion-view view-title="EditMeetup">
-    <ion-header-bar class="bar bar-positive">
+    <ion-header-bar class="bar bar-royal">
         <div class="button button-clear">
             <a class="button button-clear ion-chevron-left" ui-sref="tab.meetups"></a>
         </div>
         <h1 class="title">Edit Meetup</h1>
     </ion-header-bar>
     <ion-content>
-        <ion-list>
-            <label class="item item-input">
-                <span class="input-label">Date</span>
-                <input class="text-field" type="text" ng-model="meetup.date">
+        <div class="list group-form">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-royal">Date</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.date">
             </label>
-            <label class="item item-input">
-                <span class="input-label">Time</span>
-                <input class="text-field" type="text" ng-model="meetup.time">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-royal">Time</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.time">
             </label>
-            <label class="item item-input">
-                <span class="input-label">Location</span>
-                <input class="text-field" type="text" ng-model="meetup.location">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label make-royal">Location</span>
+                <input class="text-field make-royal" type="text" ng-model="meetup.location">
             </label>
-        </ion-list>
-        <button class="button button-block button-positive" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="editMeetup()">Update</button>
-        <button class="button button-block button-positive" ng-click="remove()" type="button">Delete Meetup</button>
+        </div>
+        <button class="button button-full button-stable button-clear" ng-click="remove()" type="button">Delete Meetup</button>
     </ion-content>
+    <div class="bar bar-royal bar-footer footer-button">
+        <a class="button button-full button-clear" ng-disabled="!meetup.date || !meetup.time || !meetup.location" ng-click="editMeetup()">Update</a>
+    </div>
 </ion-view>

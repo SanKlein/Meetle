@@ -1,5 +1,5 @@
 <ion-view view-title="Groups">
-  <ion-header-bar class="bar bar-positive">
+  <ion-header-bar class="bar bar-royal">
     <button ng-click="openMenu()" class="button button-clear ion-navicon-round"></button>
     <h1 class="title">My Groups</h1>
     <a class="button button-clear ion-plus-round" ui-sref="newGroup"></a>
@@ -7,8 +7,8 @@
   <ion-content>
     <ion-list can-swipe="true" show-delete="false">
       <ion-item class="item item-text-wrap" ng-click="loadGroup(group)" ng-repeat="group in groups track by $index">
-        <a class="button button-clear button-dark">{{group.title}}</a>
-        <a class="ion-ios-arrow-right arrow-button button button-clear button-dark"></a>
+        <a class="button button-clear button-royal">{{group.title}}</a>
+        <a class="ion-ios-arrow-right arrow-button button button-clear button-royal"></a>
         <ion-option-button class="button-assertive" ng-click="leaveGroup(group, $index)">
           Leave
         </ion-option-button>
