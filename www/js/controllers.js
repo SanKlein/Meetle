@@ -459,7 +459,7 @@ angular.module('meetle.controllers', [])
 
     }])
 
-    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', function($rootScope, $scope, ChatFactory, $window, $localstorage) {
+    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', '$interval', function($rootScope, $scope, ChatFactory, $window, $localstorage, $interval) {
 
         $scope.user = $localstorage.getObject('currentUser');
         if (!$scope.user.username) $window.location.assign('#/login');
@@ -472,10 +472,27 @@ angular.module('meetle.controllers', [])
         //};
 
         // upon creation, the chat window will cycle through this and display all the messages
-        $scope.chats = currentSubGroup.chats;
+        $scope.chats = $rootScope.currentSubGroup.chats;
+
+        // the chat will be updated on an interval. It is a full refresh unfortunately
+        $interval(function() {
+            $rootscope.apply(function () {
+                $scope.chats = currentSubgroup.chats;
+            });
+        }, 500);
 
         $scope.messageText = "";
 
+        $scope.add = function() {
+            ChatFactory.add({
+                text: $scope.messageText,
+                subgroup: $rootScope.currentSubGroup,
+                user_username: $scope.user.username,
+                user_id: $scope.user._id
+            });
+        };
+
+        /*
         // Tries to connect to the server URl. Not sure if this address/port is correct. I got '3000' from the server.js file
         // If successful, the socket variable below will provide us with a TCP connection to our server
         var socket = io.connect('http://localhost:3000');
@@ -506,6 +523,7 @@ angular.module('meetle.controllers', [])
         // $scope.likeChat = function() {
         //
         // }
+        */
     }])
 
     .controller('MeetupsCtrl', ['$rootScope', '$scope', 'MeetupFactory', '$window', '$localstorage', '$ionicListDelegate', function($rootScope, $scope, MeetupFactory, $window, $localstorage, $ionicListDelegate) {

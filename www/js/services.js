@@ -385,24 +385,26 @@ angular.module('meetle.services', [])
     .factory('ChatFactory', ['$q', '$http', function($q, $http) {
         return {
 
-            create: function(chat) {
+            create: function (chat) {
                 var deferred = $q.defer();
 
                 $http.post(base + '/chat/add', chat)
-                .success(function(message) {
-                    deferred.resolve(message);
-                })
-                .error(function(err) {
-                    deferred.reject(err);
-                });
+                    .success(function (message) {
+                        deferred.resolve(message);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    });
 
                 return deferred.promise;
             },
+        }
 
+            /*
             getChat: function() {
                 var deferred = $q.defer();
 
-                $http.post(base + '/chat/all')
+                $http.post(base + '/chat/checkForUpdates')
                 .success(function(chats) {
                     deferred.resolve(chats);
                 })
@@ -412,8 +414,8 @@ angular.module('meetle.services', [])
 
                 return deferred.promise;
             },
-
-        }
+            */
+        /*
           return {
 
                 create: function(chat) {
@@ -445,8 +447,8 @@ angular.module('meetle.services', [])
 
                       return deferred.promise;
                 }
-
           }
+          */
     }])
 
     .factory('MeetupFactory', ['$q', '$http', function($q, $http) {

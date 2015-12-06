@@ -3,11 +3,11 @@ var Group = require('./group'),
     Subgroup = require('./subgroup'),
     Chat = require('./chat'),
     meetup = require('./meetup'),
-    mongoose = require('mongoose'),
-    io = require('socket.io').listen(3000);
+    mongoose = require('mongoose');
+    // io = require('socket.io').listen(3000)
 
 // this 'io' object represents the server URL which we will connect all the front end sockets to
-io.on('connection', function(socket){
+/* io.on('connection', function(socket){
 
     // this listens for a 'send message' event from a front end socket
     socket.on('store message', function(data) {
@@ -33,6 +33,7 @@ io.on('connection', function(socket){
         });
     });
 });
+*/
 
 module.exports = function(app) {
 
@@ -87,7 +88,7 @@ module.exports = function(app) {
 
     app.post('/chat/add', chat.add);
 
-    app.post('/chat/all', chat.all);
+    // app.post('/chat/checkForUpdates', chat.checkForUpdates);
 
     app.post('/v1/meetups', meetup.all);
 
