@@ -490,6 +490,7 @@ angular.module('meetle.controllers', [])
                 user_username: $scope.user.username,
                 user_id: $scope.user._id
             });
+            $scope.messageText = "";
         };
 
         /*
