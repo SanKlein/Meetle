@@ -102,9 +102,9 @@ module.exports = {
   },
 
   load: function (req, res) {
-    var id = req.body.username;
+    var id = req.body._id;
 
-    User.find({username: id}).exec(function(err, user) {
+    User.find({_id: id}).exec(function(err, user) {
       if (user) {
         res.status(200).send(user);
       } else {

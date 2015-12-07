@@ -459,7 +459,7 @@ angular.module('meetle.controllers', [])
 
     }])
 
-    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', function($rootScope, $scope, ChatFactory, $window, $localstorage) {
+    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', '$interval', function($rootScope, $scope, ChatFactory, $window, $localstorage, $interval) {
 
         $scope.chatroom = {
             chats: [],
@@ -474,11 +474,10 @@ angular.module('meetle.controllers', [])
         if (!$scope.user.username) $window.location.assign('#/login');
 
         //$interval(function() {
-            //$rootscope.apply(function () {
-                ChatFactory.getChat($scope.chatroom).then(function(chats) {
-                    $scope.chatroom.chats = chats;
-                });
-            //});
+            ChatFactory.getChat($scope.chatroom).then(function(chats) {
+                $scope.chatroom.chats = chats;
+            });
+            //$scope.apply();
         //}, 1000);
 
         $scope.addChat = function() {
