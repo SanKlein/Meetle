@@ -68,7 +68,6 @@ module.exports = {
       if (err) {
         res.status(500).send('Internal server error.');
       } else {
-        console.log('Updated user: ' + username);
         res.status(200).send('User updated');
       }
     });
@@ -82,7 +81,6 @@ module.exports = {
         res.status(500).send({ error: 'Internal server error.' });
       } else {
         if(user) {
-          console.log('Deleted user: ' + user);
           res.status(200).send(user);
         } else {
           res.status(404).send({ error: 'User does not exist' });

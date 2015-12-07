@@ -139,7 +139,6 @@ angular.module('meetle.controllers', [])
         $scope.leaveGroup = function(group, index) {
             group.user = $localstorage.getObject('currentUser')._id;
             GroupFactory.leaveCurrentGroup(group).then(function(msg) {
-                console.log('Left Group');
                 $scope.groups.splice(index, 1);
                 $ionicListDelegate.closeOptionButtons();
             });
@@ -231,12 +230,9 @@ angular.module('meetle.controllers', [])
 
         $rootScope.currentUser = $localstorage.getObject('currentUser');
 
-        console.log($localstorage.getObject('currentGroup'));
-
         // load all users in group
         UserFactory.loadGroupUsers($localstorage.getObject('currentGroup')).then(function(users) {
             var users = users[0].members;
-            console.log(users);
             if (users) {
                 for (var i = 0; i < users.length; i++) {
                     (function(index) {
@@ -247,10 +243,8 @@ angular.module('meetle.controllers', [])
                             var user = {
                                 id: users[index]
                             };
-                            console.log(users[index]);
                             // load user information
                             UserFactory.loadUser(user).then(function(user) {
-                                console.log(user);
                                 $scope.members.users.push(user[0]);
                             });
                         }
@@ -275,7 +269,6 @@ angular.module('meetle.controllers', [])
 
         $scope.editGroupName = function() {
             GroupFactory.changeGroupName($scope.group).then(function(msg) {
-                console.log(msg);
                 $localstorage.setObject('currentGroup', $scope.group);
                 $window.location.assign('#/groupSettings');
             });
@@ -309,9 +302,7 @@ angular.module('meetle.controllers', [])
 
         $scope.leaveSubGroup = function(subgroup, index) {
             subgroup.user = $localstorage.getObject('currentUser')._id;
-            console.log(subgroup);
             SubGroupFactory.leaveCurrentSubGroup(subgroup).then(function(msg) {
-                console.log('Left Subgroup');
                 $scope.subgroups.splice(index, 1);
                 $ionicListDelegate.closeOptionButtons();
             });
@@ -371,7 +362,6 @@ angular.module('meetle.controllers', [])
                             var user = {
                                 id: users[index]
                             };
-                            console.log(users[index]);
                             // load user information
                             UserFactory.loadUser(user).then(function(user) {
                                 user[0].subgroup = $localstorage.getObject('currentSubGroup')._id;
@@ -407,12 +397,9 @@ angular.module('meetle.controllers', [])
 
         $rootScope.currentUser = $localstorage.getObject('currentUser');
 
-        console.log($localstorage.getObject('currentGroup'));
-
         // load all users in group
         UserFactory.loadSubgroupUsers($localstorage.getObject('currentSubGroup')).then(function(users) {
             var users = users[0].members;
-            console.log(users);
             if (users) {
                 for (var i = 0; i < users.length; i++) {
                     (function(index) {
@@ -423,10 +410,8 @@ angular.module('meetle.controllers', [])
                             var user = {
                                 id: users[index]
                             };
-                            console.log(users[index]);
                             // load user information
                             UserFactory.loadUser(user).then(function(user) {
-                                console.log(user);
                                 $scope.members.users.push(user[0]);
                             });
                         }
@@ -451,7 +436,6 @@ angular.module('meetle.controllers', [])
 
         $scope.editSubGroupName = function() {
             SubGroupFactory.changeSubGroupName($scope.subgroup).then(function(msg) {
-                console.log(msg);
                 $localstorage.setObject('currentSubGroup', $scope.subgroup);
                 $window.location.assign('#/subGroupSettings');
             });
