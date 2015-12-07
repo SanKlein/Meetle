@@ -474,10 +474,11 @@ angular.module('meetle.controllers', [])
         if (!$scope.user.username) $window.location.assign('#/login');
 
         //$interval(function() {
-            ChatFactory.getChat($scope.chatroom).then(function(chats) {
-                $scope.chatroom.chats = chats;
-            });
-            //$scope.apply();
+            //$scope.$apply(function () {
+                ChatFactory.getChat($scope.chatroom).then(function(chats) {
+                    $scope.chatroom.chats = chats;
+                });
+            //});
         //}, 1000);
 
         $scope.addChat = function() {

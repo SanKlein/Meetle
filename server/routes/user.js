@@ -102,7 +102,7 @@ module.exports = {
   },
 
   load: function (req, res) {
-    var id = req.body._id;
+    var id = req.body.id;
 
     User.find({_id: id}).exec(function(err, user) {
       if (user) {
