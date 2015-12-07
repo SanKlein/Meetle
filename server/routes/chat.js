@@ -37,7 +37,7 @@ module.exports = {
   getChat : function(req, res) {
     var subgroup = req.body.subgroup;
 
-    Chat.find({subgroup: subgroup}).sort({sent:-1}).exec(function(err, chats) {
+    Chat.find({subgroup: subgroup}).sort({sent:1}).exec(function(err, chats) {
       if (chats) {
         res.json(chats);
       } else {

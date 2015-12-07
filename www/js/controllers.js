@@ -443,7 +443,7 @@ angular.module('meetle.controllers', [])
 
     }])
 
-    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', '$interval', function($rootScope, $scope, ChatFactory, $window, $localstorage, $interval) {
+    .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', '$interval', '$ionicScrollDelegate', function($rootScope, $scope, ChatFactory, $window, $localstorage, $interval, $ionicScrollDelegate) {
 
         $scope.chatroom = {
             chats: [],
@@ -461,6 +461,7 @@ angular.module('meetle.controllers', [])
             ChatFactory.getChat($scope.chatroom).then(function(chats) {
                 $scope.chatroom.chats = chats;
             });
+            $ionicScrollDelegate.scrollBottom(true);
         }, 1000);
 
         $scope.addChat = function() {
