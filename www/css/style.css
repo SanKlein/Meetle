@@ -177,3 +177,8 @@ ion-view {
   top: 10px;
   right: 5px;
 }
+
+.text-input {
+  display: inline-flex;
+  width: 100%;
+}
