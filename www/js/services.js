@@ -400,6 +400,21 @@ angular.module('meetle.services', [])
                       return deferred.promise;
                 },
 
+                likeChat: function(chat) {
+                    var deferred = $q.defer();
+
+                    $http.post(base + '/chat/likeChat', chat)
+                        .success(function(message) {
+                            deferred.resolve(message);
+                        })
+                        .error(function(err) {
+                            deferred.reject(err);
+                        })
+                    ;
+
+                    return deferred.promise;
+                }
+
               // this is Parker's bit, I'm reluctant to delete it as I might need it later
               /*
                 getChat: function() {

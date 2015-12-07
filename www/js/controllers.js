@@ -470,7 +470,7 @@ angular.module('meetle.controllers', [])
 
         $interval(function() {
             $rootscope.apply(function () {
-                $scope.chats = currentSubgroup.chats;
+                $scope.chats = currentSubGroup.chats;
             });
         }, 500);
 
@@ -484,6 +484,10 @@ angular.module('meetle.controllers', [])
                 user_id: $scope.user._id
             });
             $scope.messageText = "";
+        };
+
+        $scope.likeChat = function(chat) {
+            ChatFactory.likeChat(chat);
         };
     }])
 

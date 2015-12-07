@@ -5,15 +5,15 @@ module.exports = {
 
   addChat : function(req, res) {
 
-    var chat = new Chat();
+    var newChat = new Chat();
 
-    chat.text = req.body.text;
-    chat.subgroup = req.body.subgroup;
-    chat.user_username = req.body.user_username;
-    chat.user_id = req.body.user_id;
-    chat.sent = date();
+    newChat.text = req.body.text;
+    newChat.subgroup = req.body.subgroup;
+    newChat.user_username = req.body.user_username;
+    newChat.user_id = req.body.user_id;
+    newChat.sent = date();
 
-    chat.save(function(err) {
+    newChat.save(function(err) {
       if (!err) {
         res.json(chat);
       } else {
@@ -21,6 +21,19 @@ module.exports = {
       }
     });
   },
+
+  likeChat : function (req, res) {
+    var id = req.body._id;
+
+    Chat.findOneAndUpdate({_id : id}, {liked: true}, function(err) {
+      if (err) {
+        res.status(500).send('Internal server error.');
+      } else {
+        res.status(200).send('Chat liked');
+      }
+    });
+  }
+
 
   // Parker's
   /*

@@ -57,6 +57,8 @@ module.exports = function(app) {
 
     app.post('/chat/addChat', chat.addChat);
 
+    app.post('/chat/likeChat', chat.likeChat);
+
     app.post('/v1/meetups', meetup.all);
 
     app.post('/v1/meetup', meetup.create);
