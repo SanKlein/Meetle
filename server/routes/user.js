@@ -75,9 +75,9 @@ module.exports = {
   },
 
   deleteUser: function (req, res) {
-    var id = req.body._id;
+    var id = req.body.username;
 
-    User.remove({ _id:id }).exec(function(err, user) {
+    User.remove({ username:id }).exec(function(err, user) {
       if(err) {
         res.status(500).send({ error: 'Internal server error.' });
       } else {
@@ -102,9 +102,9 @@ module.exports = {
   },
 
   load: function (req, res) {
-    var id = req.body.id;
+    var id = req.body.username;
 
-    User.find({_id: id}).exec(function(err, user) {
+    User.find({username: id}).exec(function(err, user) {
       if (user) {
         res.status(200).send(user);
       } else {

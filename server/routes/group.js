@@ -15,9 +15,9 @@ module.exports = {
 
     group.save(function(err){
       if (!err) {
-        res.send(group);
+        res.status(200).send(group);
       } else {
-        res.send(err, 403);
+        res.status(403).send(err);
       }
     });
   },
