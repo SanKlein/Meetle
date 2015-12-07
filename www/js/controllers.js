@@ -461,33 +461,50 @@ angular.module('meetle.controllers', [])
 
     .controller('ChatCtrl', ['$rootScope', '$scope', 'ChatFactory', '$window', '$localstorage', function($rootScope, $scope, ChatFactory, $window, $localstorage) {
 
+        $scope.chatroom = {
+            chats: [],
+            text: '',
+            user_username: $localstorage.getObject('currentUser').username,
+            user_id: $localstorage.getObject('currentUser')._id,
+            subgroup: $localstorage.getObject('currentSubGroup')._id,
+            subgroup_title: $localstorage.getObject('currentSubGroup').title
+        };
+
         $scope.user = $localstorage.getObject('currentUser');
         if (!$scope.user.username) $window.location.assign('#/login');
 
-        $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
-
-        $scope.chats = $rootScope.currentSubGroup.chats;
-
-        $interval(function() {
-            $rootscope.apply(function () {
-                $scope.chats = currentSubGroup.chats;
-            });
-        }, 500);
-
-        $scope.messageText = "";
+        //$interval(function() {
+            //$rootscope.apply(function () {
+                ChatFactory.getChat($scope.chatroom).then(function(chats) {
+                    $scope.chatroom.chats = chats;
+                });
+            //});
+        //}, 1000);
 
         $scope.addChat = function() {
-            ChatFactory.addChat({
-                text: $scope.messageText,
-                subgroup: $rootScope.currentSubGroup,
-                user_username: $scope.user.username,
-                user_id: $scope.user._id
+            var newChat = {
+                text: $scope.chatroom.text,
+                user_id: $scope.chatroom.user_id,
+                user_username: $scope.chatroom.user_username,
+                subgroup: $scope.chatroom.subgroup
+            };
+
+            ChatFactory.create(newChat).then(function(chat) {
+                if ($scope.chatroom.chats) {
+                    $scope.chatroom.chats.push(chat);
+                } else {
+                    $scope.chatroom.chats = [chat];
+                }
             });
-            $scope.messageText = "";
+
+            $scope.chatroom.text = '';
         };
 
-        $scope.likeChat = function(chat) {
-            ChatFactory.likeChat(chat);
+        $scope.likeChat = function(chat, index) {
+            ChatFactory.likeChat(chat).then(function(newChat) {
+                newChat.liked = !newChat.liked;
+                $scope.chatroom.chats[index] = newChat;
+            });
         };
     }])
 

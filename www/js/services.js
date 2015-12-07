@@ -385,10 +385,10 @@ angular.module('meetle.services', [])
     .factory('ChatFactory', ['$q', '$http', function($q, $http) {
           return {
 
-                addChat: function(chat) {
+                create: function(chat) {
                       var deferred = $q.defer();
 
-                      $http.post(base + '/chat/addChat', chat)
+                      $http.post(base + '/v1/chat/add', chat)
                             .success(function(message) {
                                 deferred.resolve(message);
                             })
@@ -403,7 +403,7 @@ angular.module('meetle.services', [])
                 likeChat: function(chat) {
                     var deferred = $q.defer();
 
-                    $http.post(base + '/chat/likeChat', chat)
+                    $http.post(base + '/v1/chat/like', chat)
                         .success(function(message) {
                             deferred.resolve(message);
                         })
@@ -413,14 +413,12 @@ angular.module('meetle.services', [])
                     ;
 
                     return deferred.promise;
-                }
+                },
 
-              // this is Parker's bit, I'm reluctant to delete it as I might need it later
-              /*
-                getChat: function() {
+                getChat: function(chatroom) {
                       var deferred = $q.defer();
 
-                      $http.post(base + '/chat/all')
+                      $http.post(base + '/v1/chat', chatroom)
                             .success(function(chats) {
                                 deferred.resolve(chats);
                             })
@@ -431,7 +429,6 @@ angular.module('meetle.services', [])
 
                       return deferred.promise;
                 }
-                */
 
           }
     }])

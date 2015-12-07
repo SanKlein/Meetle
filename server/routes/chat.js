@@ -3,7 +3,7 @@ var mongoose = require("mongoose"),
 
 module.exports = {
 
-  addChat : function(req, res) {
+  create : function(req, res) {
 
     var newChat = new Chat();
 
@@ -11,11 +11,10 @@ module.exports = {
     newChat.subgroup = req.body.subgroup;
     newChat.user_username = req.body.user_username;
     newChat.user_id = req.body.user_id;
-    newChat.sent = date();
 
     newChat.save(function(err) {
       if (!err) {
-        res.json(chat);
+        res.json(newChat);
       } else {
         res.status(403).json(err);
       }
@@ -24,22 +23,21 @@ module.exports = {
 
   likeChat : function (req, res) {
     var id = req.body._id;
+    var liked = !req.body.liked;
 
-    Chat.findOneAndUpdate({_id : id}, {liked: true}, function(err) {
+    Chat.findOneAndUpdate({_id : id}, {liked: liked}).exec(function(err, chat) {
       if (err) {
         res.status(500).send('Internal server error.');
       } else {
-        res.status(200).send('Chat liked');
+        res.status(200).send(chat);
       }
     });
-  }
+  },
 
+  getChat : function(req, res) {
+    var subgroup = req.body.subgroup;
 
-  // Parker's
-  /*
-  all : function(req, res) {
-
-    Chat.find().sort({sent:-1}).exec(function(err, chats) {
+    Chat.find({subgroup: subgroup}).sort({sent:-1}).exec(function(err, chats) {
       if (chats) {
         res.json(chats);
       } else {
@@ -47,6 +45,5 @@ module.exports = {
       }
     });
   }
-  */
 
 };
