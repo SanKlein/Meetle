@@ -8,8 +8,11 @@ describe('Meetle Test Suite', function() {
 
     var testData = {
         user_id: '',
+        user_id2: '',
         group_id: '',
-        subgroup_id: ''
+        subgroup_id: '',
+        meetup_id: '',
+        chat_id: ''
     };
 
     it('POST /v1/user : respond with status code 200, check first_name, check last_name, check username', function(done) {
@@ -191,7 +194,289 @@ describe('Meetle Test Suite', function() {
             });
     });
 
+    it('POST /v1/user : respond with status code 200, check first_name, check last_name, check username', function(done) {
+        var signupData = {
+            'username': 'TestAccount2',
+            'first_name' : 'Test',
+            'last_name': 'Account',
+            'password1': 'password'
+        };
+        request(app)
+            .post('/v1/user')
+            .set('Accept', 'application/json')
+            .send(signupData)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                console.log(res.body);
+                testData.user_id2 = res.body._id;
+                assert.equal(res.body.username, 'TestAccount2');
+                assert.equal(res.body.first_name, 'Test');
+                assert.equal(res.body.last_name, 'Account');
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
 
+    it('POST /v1/user/group : respond with status code 200, user not in group', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            group: testData.group_id
+        };
+        request(app)
+            .post('/v1/user/group')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.body, false);
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/group : respond with status code 200, user in group', function(done) {
+        var user = {
+            _id: testData.user_id,
+            group: testData.group_id
+        };
+        request(app)
+            .post('/v1/user/group')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.body, true);
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/group/add : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            group: testData.group_id
+        };
+        request(app)
+            .post('/v1/user/group/add')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/users/group : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.group_id
+        };
+        request(app)
+            .post('/v1/users/group')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/subgroup : respond with status code 200, user not in group', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            subgroup: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/user/subgroup')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.body, false);
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/subgroup/add : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            subgroup: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/user/subgroup/add')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/users/subgroup : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/users/subgroup')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/subgroup/remove : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            subgroup: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/user/subgroup/remove')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/user/group/remove : respond with status code 200', function(done) {
+        var user = {
+            _id: testData.user_id2,
+            group: testData.group_id
+        };
+        request(app)
+            .post('/v1/user/group/remove')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/meetup : respond with status code 200, check location, check subgroup', function (done) {
+        var meetup = {
+            subgroup_id: testData.subgroup_id,
+            date: '1/1/2016',
+            time: '1:00 PM',
+            location: 'Rand'
+        };
+        request(app)
+            .post('/v1/meetup')
+            .set('Accept', 'application/json')
+            .send(meetup)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                testData.meetup_id = res.body._id;
+                assert.equal(res.body.location, 'Rand');
+                assert.equal(res.body.subgroup, testData.subgroup_id);
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/meetups : respond with status code 200', function (done) {
+        var meetup = {
+            _id: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/meetups')
+            .set('Accept', 'application/json')
+            .send(meetup)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('POST /v1/meetup/delete : respond with status code 200', function (done) {
+        var meetup = {
+            _id: testData.meetup_id
+        };
+        request(app)
+            .post('/v1/meetup/delete')
+            .set('Accept', 'application/json')
+            .send(meetup)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
 
     it('POST /v1/subgroup/leave : respond with status code 200', function (done) {
         var subgroup = {
@@ -237,6 +522,26 @@ describe('Meetle Test Suite', function() {
     });
 
     /* Keep at bottom it deletes the test user ==================================== */
+    it('POST /v1/user/delete : respond with status code 200 from delete user', function (done) {
+        var user = {
+            username: 'TestAccount2'
+        };
+        request(app)
+            .post('/v1/user/delete')
+            .set('Accept', 'application/json')
+            .send(user)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
     it('POST /v1/user/delete : respond with status code 200 from delete user', function (done) {
         var user = {
             username: 'TestAccount'
