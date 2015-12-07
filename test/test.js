@@ -102,7 +102,7 @@ describe('GET /v1/groups', function() {
     var response = '';
     it('Respond with status code 200 from get groups', function (done) {
         request(app)
-            .get('/v1/groups/564bb816c47125145bf732ce')
+            .get('/v1/groups/5665b73f578783400d7310a8')
             .set('Accept', 'application/json')
             .send()
             .expect('Content-Type', /json/)
@@ -121,7 +121,7 @@ describe('GET /v1/groups', function() {
 describe('POST /v1/group', function() {
     var response = '';
     var group = {
-        user_id: '564bb816c47125145bf732ce',
+        user_id: '5665b73f578783400d7310a8',
         title: 'TestGroup'
     };
     it('Respond with status code 200 from create group', function (done) {
