@@ -461,8 +461,9 @@ angular.module('meetle.controllers', [])
             ChatFactory.getChat($scope.chatroom).then(function(chats) {
                 $scope.chatroom.chats = chats;
             });
-            $ionicScrollDelegate.scrollBottom(true);
         }, 1000);
+
+        $ionicScrollDelegate.scrollBottom(true);
 
         $scope.addChat = function() {
             var newChat = {
