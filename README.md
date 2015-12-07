@@ -45,6 +45,7 @@ Meetle is a platform-independent application for people to easily collaborate in
 20. As a user I can edit my profile.
 
 ## Development Guidelines:
+- Keep track of progress and tasks using a Trello board (https://trello.com/b/In1Ag46e/meetle)
 - Development is in Javascript using NodeJS, AngularJS, Ionic, HTML, and CSS.
 - Mocha testing framework is used for test suite.
 - There is one master branch for the project, which is the latest, stable version of the application.
