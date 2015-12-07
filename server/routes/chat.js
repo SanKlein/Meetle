@@ -3,15 +3,15 @@ var mongoose = require("mongoose"),
 
 module.exports = {
 
-  add : function(req, res) {
+  addChat : function(req, res) {
 
     var chat = new Chat();
 
     chat.text = req.body.text;
-    //chat.course = req.body.course;
-    //chat.user_id = req.body.user_id;
+    chat.subgroup = req.body.subgroup;
     chat.user_username = req.body.user_username;
-    //chat.group = req.body.group;
+    chat.user_id = req.body.user_id;
+    chat.sent = date();
 
     chat.save(function(err) {
       if (!err) {
@@ -22,6 +22,8 @@ module.exports = {
     });
   },
 
+  // Parker's
+  /*
   all : function(req, res) {
 
     Chat.find().sort({sent:-1}).exec(function(err, chats) {
@@ -31,7 +33,7 @@ module.exports = {
         res.status(403).json(err);
       }
     });
-
   }
+  */
 
 };

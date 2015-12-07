@@ -6,7 +6,7 @@
   </ion-header-bar>
   <ion-content>
     <ion-list>
-      <div class="item item-button-right item-avatar item-text-wrap" ng-repeat="chat in chatroom.chats track by $index">
+      <div class="item item-button-right item-avatar item-text-wrap" ng-repeat="chat in chats track by $index">
         <img class="img-circle" src="../img/meetle.png"> <!--ng-src="{{post.profilePicture}}"-->
         <h2 class="make-royal">{{chat.user_username}}</h2>
         <p>{{chat.text}}</p>
@@ -19,7 +19,7 @@
   <ion-footer-bar class="bar bar-stable item-input-inset">
     <label class="item-input-wrapper">
       <form ng-submit="addChat()" class="text-input">
-        <input class="text-field royaled" type="text" placeholder="Message" ng-model="chatroom.text" autofocus>
+        <input class="text-field royaled" type="text" placeholder="Message" ng-model="messageText" autofocus>
       </form>
     </label>
     <button type="submit" class="button button-royal button-clear" ng-click="addChat()" ng-disabled="!chatroom.text">Send</button>

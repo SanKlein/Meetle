@@ -55,9 +55,7 @@ module.exports = function(app) {
 
     app.post('/v1/subgroup/leave', subgroup.leaveSubGroup);
 
-    app.post('/chat/add', chat.add);
-
-    app.post('/chat/all', chat.all);
+    app.post('/chat/addChat', chat.addChat);
 
     app.post('/v1/meetups', meetup.all);
 

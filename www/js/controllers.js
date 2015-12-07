@@ -466,9 +466,24 @@ angular.module('meetle.controllers', [])
 
         $rootScope.currentSubGroup = $localstorage.getObject('currentSubGroup');
 
-        $scope.chatroom = {
-            chats: [],
-            text: ''
+        $scope.chats = $rootScope.currentSubGroup.chats;
+
+        $interval(function() {
+            $rootscope.apply(function () {
+                $scope.chats = currentSubgroup.chats;
+            });
+        }, 500);
+
+        $scope.messageText = "";
+
+        $scope.addChat = function() {
+            ChatFactory.addChat({
+                text: $scope.messageText,
+                subgroup: $rootScope.currentSubGroup,
+                user_username: $scope.user.username,
+                user_id: $scope.user._id
+            });
+            $scope.messageText = "";
         };
     }])
 
