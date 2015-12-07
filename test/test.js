@@ -98,10 +98,33 @@ describe('Meetle Test Suite', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                console.log(res.body);
                 assert.equal(res.body[0].username, 'TestAccount');
                 assert.equal(res.body[0].first_name, 'Test');
                 assert.equal(res.body[0].last_name, 'Account');
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('PUT /v1/user : respond with status code 200', function(done) {
+        var newUserInfo = {
+            '_id': testData.user_id,
+            'username': 'TestAccount',
+            'first_name' : 'Updated',
+            'last_name': 'Updated'
+        };
+        request(app)
+            .put('/v1/user')
+            .set('Accept', 'application/json')
+            .send(newUserInfo)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                if(err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                console.log(res.body);
                 assert.equal(res.status, 200);
                 done();
             });
@@ -142,6 +165,27 @@ describe('Meetle Test Suite', function() {
                 }
                 testData.group_id = res.body._id;
                 assert.equal(res.body.title, 'TestGroup');
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('PUT /v1/group/name : respond with status code 200', function (done) {
+        var updatedGroupInfo = {
+            _id: testData.group_id,
+            title: 'Updated Group Name'
+        };
+        request(app)
+            .put('/v1/group/name')
+            .set('Accept', 'application/json')
+            .send(updatedGroupInfo)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
                 assert.equal(res.status, 200);
                 done();
             });
@@ -189,6 +233,27 @@ describe('Meetle Test Suite', function() {
                 }
                 testData.subgroup_id = res.body[0]._id;
                 assert.equal(res.body[0].title, 'TestSubGroup');
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('PUT /v1/subgroup/name : respond with status code 200', function (done) {
+        var updatedSubGroupInfo = {
+            _id: testData.subgroup_id,
+            title: 'Updated Subgroup Name'
+        };
+        request(app)
+            .put('/v1/subgroup/name')
+            .set('Accept', 'application/json')
+            .send(updatedSubGroupInfo)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
                 assert.equal(res.status, 200);
                 done();
             });
@@ -485,7 +550,6 @@ describe('Meetle Test Suite', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                console.log(res.body);
                 assert.equal(res.status, 200);
                 assert.equal(res.body._id, testData.chat_id);
                 assert.equal(res.body.liked, !chat.liked);
@@ -514,6 +578,29 @@ describe('Meetle Test Suite', function() {
                 testData.meetup_id = res.body._id;
                 assert.equal(res.body.location, 'Rand');
                 assert.equal(res.body.subgroup, testData.subgroup_id);
+                assert.equal(res.status, 200);
+                done();
+            });
+    });
+
+    it('PUT /v1/meetup : respond with status code 200', function (done) {
+        var updatedMeetup = {
+            _id: testData.meetup_id,
+            date: 'Updated date',
+            time: 'Updated time',
+            location: 'Updated location'
+        };
+        request(app)
+            .put('/v1/meetup')
+            .set('Accept', 'application/json')
+            .send(updatedMeetup)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
                 assert.equal(res.status, 200);
                 done();
             });
