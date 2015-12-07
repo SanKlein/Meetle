@@ -412,6 +412,87 @@ describe('Meetle Test Suite', function() {
             });
     });
 
+    it('POST /v1/chat/add : respond with status code 200 and send correct chat info', function (done) {
+        var chat = {
+            text: 'test',
+            user_id: testData.user_id,
+            user_username: 'TestAccount',
+            subgroup: testData.subgroup_id
+        };
+        request(app)
+            .post('/v1/chat/add')
+            .set('Accept', 'application/json')
+            .send(chat)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                testData.chat_id = res.body._id;
+                assert.equal(res.status, 200);
+                assert.equal(res.body.text, 'test');
+                assert.equal(res.body.user_id, testData.user_id);
+                assert.equal(res.body.user_username, 'TestAccount');
+                assert.equal(res.body.subgroup, testData.subgroup_id);
+                done();
+            });
+    });
+
+    it('POST /v1/chat : respond with status code 200 and send correct chats', function (done) {
+        var chatroom = {
+            chats: [],
+            text: '',
+            user_username: 'TestAccount',
+            user_id: testData.user_id,
+            subgroup: testData.subgroup_id,
+            subgroup_title: 'TestSubGroup'
+        };
+        request(app)
+            .post('/v1/chat')
+            .set('Accept', 'application/json')
+            .send(chatroom)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                assert.equal(res.status, 200);
+                assert.equal(res.body[0].text, 'test');
+                assert.equal(res.body[0].user_id, testData.user_id);
+                assert.equal(res.body[0].user_username, 'TestAccount');
+                assert.equal(res.body[0].subgroup, testData.subgroup_id);
+                done();
+            });
+    });
+
+    it('/v1/chat/like : respond with status code 200 and check like', function (done) {
+        var chat = {
+            _id: testData.chat_id,
+            liked: true
+        };
+        request(app)
+            .post('/v1/chat/like')
+            .set('Accept', 'application/json')
+            .send(chat)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) {
+                    console.log('Error: ' + err);
+                } else {
+                    console.log('Response: ' + res);
+                }
+                console.log(res.body);
+                assert.equal(res.status, 200);
+                assert.equal(res.body._id, testData.chat_id);
+                assert.equal(res.body.liked, !chat.liked);
+                done();
+            });
+    });
+
     it('POST /v1/meetup : respond with status code 200, check location, check subgroup', function (done) {
         var meetup = {
             subgroup_id: testData.subgroup_id,
