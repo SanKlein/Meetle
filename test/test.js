@@ -96,9 +96,9 @@ describe('Meetle Test Suite', function() {
                     console.log('Response: ' + res);
                 }
                 console.log(res.body);
-                assert.equal(res.body.username, 'TestAccount');
-                assert.equal(res.body.first_name, 'Test');
-                assert.equal(res.body.last_name, 'Account');
+                assert.equal(res.body[0].username, 'TestAccount');
+                assert.equal(res.body[0].first_name, 'Test');
+                assert.equal(res.body[0].last_name, 'Account');
                 assert.equal(res.status, 200);
                 done();
             });
@@ -153,7 +153,7 @@ describe('Meetle Test Suite', function() {
         request(app)
             .post('/v1/subgroup')
             .set('Accept', 'application/json')
-            .send(group)
+            .send(subgroup)
             .expect('Content-Type', /json/)
             .end(function (err, res) {
                 if (err) {
@@ -168,15 +168,15 @@ describe('Meetle Test Suite', function() {
             });
     });
 
-    it('POST /v1/subgroup/group : respond with status code 200', function (done) {
+    it('POST /v1/subgroups/group : respond with status code 200', function (done) {
         var subgroup = {
             user: testData.user_id,
             _id: testData.group_id
         };
         request(app)
-            .post('/v1/subgroup/group')
+            .post('/v1/subgroups/group')
             .set('Accept', 'application/json')
-            .send(group)
+            .send(subgroup)
             .expect('Content-Type', /json/)
             .end(function (err, res) {
                 if (err) {
@@ -184,8 +184,8 @@ describe('Meetle Test Suite', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                testData.subgroup_id = res.body._id;
-                assert.equal(res.body.title, 'TestSubGroup');
+                testData.subgroup_id = res.body[0]._id;
+                assert.equal(res.body[0].title, 'TestSubGroup');
                 assert.equal(res.status, 200);
                 done();
             });
@@ -201,7 +201,7 @@ describe('Meetle Test Suite', function() {
         request(app)
             .post('/v1/subgroup/leave')
             .set('Accept', 'application/json')
-            .send(group)
+            .send(subgroup)
             .expect('Content-Type', /json/)
             .end(function (err, res) {
                 if (err) {
@@ -209,8 +209,6 @@ describe('Meetle Test Suite', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                testData.group_id = res.body._id;
-                assert.equal(res.body.title, 'TestSubGroup');
                 assert.equal(res.status, 200);
                 done();
             });
@@ -233,8 +231,6 @@ describe('Meetle Test Suite', function() {
                 } else {
                     console.log('Response: ' + res);
                 }
-                testData.group_id = res.body._id;
-                assert.equal(res.body.title, 'TestGroup');
                 assert.equal(res.status, 200);
                 done();
             });
