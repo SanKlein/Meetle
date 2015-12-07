@@ -55,6 +55,10 @@ Meetle is a platform-independent application for people to easily collaborate in
 - All HTML code is located in www/templates/
 - All test code is located in test/test.js
 
+## API:
+API can be referenced via the following link:
+https://docs.google.com/a/vanderbilt.edu/spreadsheets/d/1a4phvxthSwOJqiHVn-jktcjGDspssCTenwMDK576FNQ/edit?usp=sharing
+
 ## Installation and Deployment
 1. Install and configure MongoDB
 2. Run MongoDB locally
