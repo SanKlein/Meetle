@@ -10,8 +10,8 @@ var express           = require('express'),
 
 var app = express();
 
-//mongoose.connect('mongodb://localhost/meetledb');
-mongoose.connect('mongodb://meetle:Meetle1@ds041593.mongolab.com:41593/meetledb');
+mongoose.connect('mongodb://localhost/meetledb');
+//mongoose.connect('mongodb://meetle:Meetle1@ds041593.mongolab.com:41593/meetledb');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
